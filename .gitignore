@@ -1,2 +1,4 @@
 ubvenv/
 data/
+__pycache__/
+Procfile
