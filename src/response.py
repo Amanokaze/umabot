@@ -6,6 +6,8 @@ def response_skill_data(data):
 
     if len(data) > limit_count:
         simpletext = f'검색 결과가 {limit_count}개가 넘습니다. 처음 검색된 {limit_count}개만 표시합니다.'
+    elif len(data) == 0:
+        simpletext = '검색 결과가 없습니다.'
     else:
         simpletext = f'전체 {len(data)}개의 검색 결과가 있습니다.'
     
