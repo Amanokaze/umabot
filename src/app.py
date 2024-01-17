@@ -10,9 +10,14 @@ app = Flask(__name__)
 def index():
     return Response('Hello World!', content_type='text/plain; charset=utf-8')
 
-@app.route('/skill')
+@app.route('/skill', methods=['POST'])
 def get_skill_data():
-    message = request.args.get('message')
+    req = request.get_json()
+    message = req['message']
+
+    if message is None:
+        return Response('message is None', content_type='text/plain; charset=utf-8')
+    
     result = query_skill_data(message)
     response = response_skill_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
