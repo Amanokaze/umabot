@@ -1,7 +1,10 @@
+import os
 import sqlite3
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 def connect_db():
-    conn = sqlite3.connect('data/master.db')
+    conn = sqlite3.connect(os.path.join(BASE_DIR, 'umabot', 'data', 'master.db'))
     cursor = conn.cursor()
     return conn, cursor
 
