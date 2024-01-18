@@ -1,0 +1,92 @@
+English,Korean
+accumulatetime,누적시간
+activate_count_all,활성화 횟수 전체
+activate_count_end_after,종료 후 활성화 횟수
+activate_count_heal,치료 활성화 횟수
+activate_count_later_half,후반부 활성화 횟수
+activate_count_middle,중간 활성화 횟수
+activate_count_start,시작 활성화 횟수
+all_corner_random,모든 코너 랜덤
+always,항상
+base_power,기본 파워
+bashin_diff_behind,뒤차이
+bashin_diff_infront,앞차이
+behind_near_lane_time,뒤 가까운 차선 시간
+blocked_front,앞 막힘
+blocked_front_continuetime,앞 지속 시간 막힘
+blocked_side_continuetime,측면 지속 시간 막힘
+change_order_onetime,한 번 주문 변경
+change_order_up_end_after,종료 후 주문 변경
+change_order_up_finalcorner_after,마지막 코너 후 주문 변경
+compete_fight_count,경쟁 싸움 횟수
+corner,코너
+corner_random,코너 랜덤
+distance_diff_rate,거리 차이율
+distance_diff_top,거리 차이 최고
+distance_rate,거리 비율
+distance_rate_after_random,랜덤 이후 거리 비율
+distance_type,거리 유형
+down_slope_random,하향 경사 랜덤
+grade,등급
+ground_condition,지면 상태
+ground_type,지면 유형
+hp_per,체력 백분율
+infront_near_lane_time,앞 가까운 차선 시간
+is_activate_any_skill,어떤 기술도 활성화
+is_badstart,나쁜 시작
+is_basis_distance,기본 거리
+is_behind_in,뒤쪽에서
+is_dirtgrade,더트등급
+is_exist_chara_id,기존캐릭터ID
+is_finalcorner,마지막 코너
+is_finalcorner_laterhalf,마지막 코너 후반
+is_finalcorner_random,마지막 코너 랜덤
+is_last_straight_onetime,마지막 직선 한 번
+is_lastspurt,막판 스퍼트
+is_move_lane,차선 이동
+is_other_character_activate_advantage_skill,다른 캐릭터가 유리한 스킬을 활성화하는지
+is_overtake,추월 여부
+is_surrounded,둘러싸인 상태
+is_temptation,유혹 상태
+lane_type,레인 유형
+last_straight_random,마지막 직선 랜덤
+lastspurt,막판 스퍼트
+motivation,동기
+near_count,근접 횟수
+order,순서
+order_rate,주문 비율
+overtake_target_time,목표 시간 추월
+phase,단계
+phase_firsthalf_random,첫 번째 절반 랜덤
+phase_laterhalf_random,두 번째 절반 랜덤
+phase_random,단계 랜덤
+popularity,인기
+post_number,게시물 번호
+random_lot,랜덤 추첨
+remain_distance,남은 거리
+remain_distance_viewer_id,남은 거리 관람자 ID
+rotation,회전
+running_style,달리기 스타일
+running_style_count_nige_otherself,달리기 스타일 카운트 니게
+running_style_count_oikomi_otherself,달리기 스타일 카운트 오이코미
+running_style_count_same,달리기 스타일 카운트 동일
+running_style_count_same_rate,달리기 스타일 동일 비율
+running_style_count_sashi_otherself,달리기 스타일 카운트 사시
+running_style_count_senko_otherself,달리기 스타일 카운트 센코
+running_style_equal_popularity_one,달리기 스타일 인기 동일
+running_style_temptation_opponent_count_nige,달리기 스타일 유혹 카운트 니게
+running_style_temptation_opponent_count_oikomi,달리기 스타일 유혹 카운트 오이코미
+running_style_temptation_opponent_count_sashi,달리기 스타일 유혹 카운트 사시
+running_style_temptation_opponent_count_senko,달리기 스타일 유혹 카운트 센코
+same_skill_horse_count,동일 기술 말 수
+season,계절
+slope,경사
+straight_front_type,직선 전면 유형
+straight_random,직선 랜덤
+temptation_count,유혹 횟수
+temptation_opponent_count_behind,유혹 상대 카운트 뒤
+temptation_opponent_count_infront,유혹 상대 카운트 앞
+time,시간
+track_id,트랙 ID
+up_slope_random,상향 경사 랜덤
+weather,날씨
