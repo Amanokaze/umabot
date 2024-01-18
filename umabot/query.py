@@ -14,3 +14,13 @@ def query_skill_data(message):
 
     close_db(conn, cursor)
     return result
+
+def query_skill_icon():
+    conn, cursor = connect_db()
+
+    sql = "select distinct icon_id from skill_data order by icon_id asc"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+    close_db(conn, cursor)
+    return result

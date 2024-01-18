@@ -1,3 +1,5 @@
 ubvenv/
 __pycache__/
 Procfile
+icons/
+imageTool.py

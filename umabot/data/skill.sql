@@ -1,6 +1,7 @@
 SELECT `sd`.`id` AS `skill_id`
      , `sd`.`rarity` AS `rarity`
      , `sd`.`group_id` AS `group_id`
+     , `sd`.`icon_id` AS `icon_id`
      , `sd`.`skill_category` AS `skill_category`
      , `sd`.`condition_1` AS `condition_1`
      , `sd`.`condition_2` AS `condition_2`

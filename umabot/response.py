@@ -1,4 +1,7 @@
+import os
 from templates import response_template
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def response_skill_data(data):
     limit_count = 5
@@ -20,9 +23,13 @@ def response_skill_data(data):
         response_item["itemList"] = list()
         response_item["itemListAlignment"] = "left"
 
-        skill_id, rarity, group_id, skill_category, condition_1, condition_2, skill_name, skill_desc = d
+        skill_id, rarity, group_id, icon_id, skill_category, condition_1, condition_2, skill_name, skill_desc = d
 
-        response_item["title"] = skill_name
+        response_item["imageTitle"] = {
+            "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{icon_id}.png",
+            "title": skill_name
+        }
+
         response_item["itemList"].append({
             "title": "설명",
             "description": skill_desc.replace('\\n', ' ')
@@ -43,6 +50,7 @@ def response_skill_data(data):
                 "description": condition_1
             })
 
+        # 이미지 표시만 되면 저거 다 없애버려도 되는데...
         response_item["itemList"].append({
             "title": "희귀도",
             "description": rarity
