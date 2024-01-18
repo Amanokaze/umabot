@@ -1,5 +1,5 @@
 import os
-from templates import response_template
+from templates import carousel_itemcard_template, simpletext_template
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +23,9 @@ def response_skill_data(data):
         response_item = dict()
         response_item["itemList"] = list()
         response_item["itemListAlignment"] = "left"
+
+        response_item["buttons"] = [{"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": r["skill_id"]}}]
+        response_item["buttonLayout"] = "vertical"
 
         response_item["imageTitle"] = {
             "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{r['icon_id']}.png",
@@ -48,5 +51,37 @@ def response_skill_data(data):
 
         response.append(response_item)
 
-    return response_template(simpletext, response)
-        
+    return carousel_itemcard_template(simpletext, response)
+
+def response_skill_condition_data(data):
+    response_data = data.iloc[0]
+    id, pc1, c1, pc2, c2 = response_data
+
+    simpletext = str()
+    simpletext_list = []
+    if c2 is None or c2 == "":
+        simpletext_list.append('조건')
+        if pc1:
+            simpletext_list.append(pc1)
+        if c1:
+            simpletext_list.append(c1)
+
+        simpletext = "\n".join(simpletext_list)
+
+    else:
+        simpletext_list.append('조건1')
+        if pc1:
+            simpletext_list.append(pc1)
+        if c1:
+            simpletext_list.append(c1)
+
+        simpletext_list.append('')
+        simpletext_list.append('조건2')
+        if pc2:
+            simpletext_list.append(pc2)
+        if c2:
+            simpletext_list.append(c2)
+
+        simpletext = "\n".join(simpletext_list)
+
+    return simpletext_template(simpletext)

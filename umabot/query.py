@@ -19,6 +19,20 @@ def query_skill_data(message):
     close_db(conn, cursor)
     return df
 
+def query_skill_condition_data(skill_id):
+    conn, cursor = connect_db()
+
+    with open(os.path.join(BASE_DIR, 'umabot', 'data', 'skill_condition.sql'), 'r') as f:
+        sql = f.read()
+        cursor.execute(sql, (skill_id, ))
+        result = cursor.fetchall()
+        
+        columns = [column[0] for column in cursor.description]
+        df = pd.DataFrame(result, columns=columns)
+
+    close_db(conn, cursor)
+    return df
+
 def query_skill_icon():
     conn, cursor = connect_db()
 
