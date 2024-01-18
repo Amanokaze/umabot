@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from db import connect_db, close_db
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,9 +12,12 @@ def query_skill_data(message):
         real_message = '%' + message + '%'
         cursor.execute(sql, (real_message, ))
         result = cursor.fetchall()
+        
+        columns = [column[0] for column in cursor.description]
+        df = pd.DataFrame(result, columns=columns)
 
     close_db(conn, cursor)
-    return result
+    return df
 
 def query_skill_icon():
     conn, cursor = connect_db()
