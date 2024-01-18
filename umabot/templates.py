@@ -25,6 +25,11 @@ def response_template(simpletext, response):
                     "label": "캐릭터",
                     "action": "message",
                     "messageText": "캐릭터"
+                },
+                {
+                    "label": "업데이트 예정",
+                    "action": "message",
+                    "messageText": "업데이트 예정"
                 }
             ]
         }
