@@ -1,0 +1,3 @@
+variable,type,point,desc
+change_order_onetime,l,0,상승
+change_order_onetime,g,0,하락
