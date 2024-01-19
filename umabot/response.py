@@ -1,5 +1,6 @@
 import os
 from templates import carousel_itemcard_template, simpletext_template
+from utils import make_condition_data
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,7 +46,13 @@ def response_skill_data(data):
         if r["ability_type_1_3"] > 0:
             ability = ability + " / " + f"{r['ability_type_1_3']}{'상승' if r['float_ability_value_1_3'] > 0 else '감소'} {r['float_ability_value_1_3']/10000}"
 
-        response_item["itemList"].append({"title": "조건", "description": f"{r['precondition_1']}f{' ' if r['precondition_1'] else ''}{r['condition_1']}"})
+        condition = str()
+        if r["precondition_1"]:
+            condition = make_condition_data(r["precondition_1"])
+        if r["condition_1"]:
+            condition = condition + " " + make_condition_data(r["condition_1"])
+
+        response_item["itemList"].append({"title": "조건", "description": condition})
         response_item["itemList"].append({"title": "효과", "description": ability})
         response_item["itemList"].append({"title": "지속/쿨", "description": f"{r['float_ability_time_1']/10000}초 / {r['float_cooldown_time_1']/10000}초"})
 
@@ -56,31 +63,35 @@ def response_skill_data(data):
 def response_skill_condition_data(data):
     response_data = data.iloc[0]
     id, pc1, c1, pc2, c2 = response_data
+    pc1_data = make_condition_data(pc1)
+    pc2_data = make_condition_data(pc2)
+    c1_data = make_condition_data(c1)
+    c2_data = make_condition_data(c2)
 
     simpletext = str()
     simpletext_list = []
     if c2 is None or c2 == "":
         simpletext_list.append('조건')
         if pc1:
-            simpletext_list.append(pc1)
+            simpletext_list.append(pc1_data)
         if c1:
-            simpletext_list.append(c1)
+            simpletext_list.append(c1_data)
 
         simpletext = "\n".join(simpletext_list)
 
     else:
         simpletext_list.append('조건1')
         if pc1:
-            simpletext_list.append(pc1)
+            simpletext_list.append(pc1_data)
         if c1:
-            simpletext_list.append(c1)
+            simpletext_list.append(c1_data)
 
         simpletext_list.append('')
         simpletext_list.append('조건2')
         if pc2:
-            simpletext_list.append(pc2)
+            simpletext_list.append(pc2_data)
         if c2:
-            simpletext_list.append(c2)
+            simpletext_list.append(c2_data)
 
         simpletext = "\n".join(simpletext_list)
 
