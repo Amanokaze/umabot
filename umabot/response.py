@@ -2,8 +2,6 @@ import os
 from templates import carousel_itemcard_template, simpletext_template
 from utils import make_condition_data
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 def response_skill_data(data):
     limit_count = 5
     simpletext = str()

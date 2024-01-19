@@ -20,7 +20,7 @@ change_order_up_end_after,레이스 종반 및 이후 순위 상승,회,0,1
 change_order_up_finalcorner_after,최종 코너 및 이후 순위 상승,회,0,1
 compete_fight_count,종반 근성 경쟁,회,0,1
 corner,,,1,1
-corner_random,,코너,0,1
+corner_random,,코너,1,1
 distance_diff_rate,거리 상 위치,%,0,1
 distance_diff_top,선두와의 거리 차이,m,0,1
 distance_rate,진행거리,%,0,1
@@ -90,3 +90,11 @@ time,,,1,1
 track_id,,경기장,1,1
 up_slope_random,무작위 오르막,,0,1
 weather,,날,1,1
+behind_near_lane_time_set1,뒤의 말딸과 인접,초,0,1
+order_rate_in20_continue,순위 비율 20% 이하 유지,,0,1
+order_rate_in40_continue,순위 비율 40% 이하 유지,,0,1
+order_rate_out20_continue,순위 비율 20% 이상 유지,,0,1
+order_rate_out40_continue,순위 비율 40% 이상 유지,,0,1
+order_rate_out50_continue,순위 비율 50% 이상 유지,,0,1
+order_rate_out70_continue,순위 비율 70% 이상 유지,,0,1
+overtake_target_no_order_up_time,추격 대상 추월 못함,초,0,1
