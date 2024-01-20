@@ -66,6 +66,8 @@ def make_condition_data(data):
             print(tv_data)
             print(type(tv_data))
 
+    return data
+
 def extract_vars():
     def extract_variables_from_csv(input_filename):
         variables = set()
