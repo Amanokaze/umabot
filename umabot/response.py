@@ -69,26 +69,30 @@ def response_skill_condition_data(data):
     simpletext = str()
     simpletext_list = []
     if c2 is None or c2 == "":
-        simpletext_list.append('조건')
         if pc1:
+            simpletext_list.append('전제조건')
             simpletext_list.append(pc1_data)
         if c1:
+            simpletext_list.append('조건')
             simpletext_list.append(c1_data)
 
         simpletext = "\n".join(simpletext_list)
 
     else:
-        simpletext_list.append('조건1')
         if pc1:
+            simpletext_list.append('전제조건1')
             simpletext_list.append(pc1_data)
         if c1:
+            simpletext_list.append('조건1')
             simpletext_list.append(c1_data)
 
         simpletext_list.append('')
-        simpletext_list.append('조건2')
+        
         if pc2:
+            simpletext_list.append('전제조건2')
             simpletext_list.append(pc2_data)
         if c2:
+            simpletext_list.append('조건2')
             simpletext_list.append(c2_data)
 
         simpletext = "\n".join(simpletext_list)

@@ -6,43 +6,65 @@ import pandas as pd
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def make_condition_data(data):
-    tv_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "translate_variables.csv"))
-    v1_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "variable_detail.csv"))
-    v2_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "variable_detail2.csv"))
-    or_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "order_rate.csv"))
-
+def parsing_condition(data):
+    # Translate variables
     def parse_condition(condition):
         match = re.match(r'([a-zA-Z_0-9]+)([<>=]+)(\d+)', condition)
         var, operator, value = match.groups()
         return var, [operator, int(value)]
 
-    def should_merge(conditions):
-        unique_vars = set().union(*[set(d.keys()) for d in conditions])
-        diff_count = sum(1 for var in unique_vars if not all(d.get(var) == conditions[0].get(var) for d in conditions))
-        return diff_count <= 1
+    # Convert string to list of dictionaries
+    delimiter1 = "@"
+    delimiter2 = "&"
+    temp_list = [item.split(delimiter2) for item in data.split(delimiter1)]
+    conditions = []
 
-    def merge_conditions(conditions):
+    for lst in temp_list:
+        dict_list = defaultdict(list)
+        for var, op_val in map(parse_condition, lst):
+            dict_list[var].append(op_val)
+        conditions.append(dict(dict_list))
+
+    # Check if dictionaries in list can be merged
+    unique_vars = set().union(*[set(d.keys()) for d in conditions])
+    diff_count = sum(1 for var in unique_vars if not all(d.get(var) == conditions[0].get(var) for d in conditions))
+
+    if diff_count == 1:
+        # Merge dictionaries in list
         merged = defaultdict(list)
         for var in set().union(*[set(d.keys()) for d in conditions]):
             for d in conditions:
                 if var in d:
                     merged[var].extend(d[var])
+        
+        for k, v in merged.items():
+            merged[k] = list(map(list, set(map(tuple, v))))
+                                
         return [dict(merged)]
+    
+    return conditions
 
-    def to_list_dict_list(string, delimiter1, delimiter2):
-        temp_list = [item.split(delimiter2) for item in string.split(delimiter1)]
-        conditions = []
+def make_condition_data(data):
+    # Load data
+    tv_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "translate_variables.csv"))
+    v1_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "variable_detail.csv"))
+    v2_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "variable_detail2.csv"))
+    or_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "order_rate.csv"))
 
-        for lst in temp_list:
-            dict_list = defaultdict(list)
-            for var, op_val in map(parse_condition, lst):
-                dict_list[var].append(op_val)
-            conditions.append(dict(dict_list))
+    # Parse variables
+    data_list = parsing_condition(data)
 
-        return merge_conditions(conditions) if should_merge(conditions) else conditions
+    # Formatting Data using dfs'
+    formatted_data_list = []
+    tv_df = tv_df.fillna("")
 
-    return to_list_dict_list(data, "@", "&")
+    for d in data_list:
+        for k, v in d.items():
+            formatted_str = str()
+            tv_data = tv_df[tv_df["English"]==k]
+            
+            print(tv_data)
+            print(type(tv_data))
 
 def extract_vars():
     def extract_variables_from_csv(input_filename):
@@ -74,14 +96,14 @@ def extract_vars():
 
 
 if __name__ == "__main__":
-    mode = "extract"
+    mode = "condition"
 
     if mode=="condition":
         data1 = "ground_type==2&ground_condition==3@ground_type==2&ground_condition==4"
         data2 = "distance_rate>=50&order_rate>=40&order_rate<=70"
         data3= "distance_rate>=50&order==1&bashin_diff_behind<=1@distance_rate>=50&order==2&is_overtake==1"
-        print(make_condition_data(data1))
-        print(make_condition_data(data2))
-        print(make_condition_data(data3))
+        make_condition_data(data1)
+        make_condition_data(data2)
+        make_condition_data(data3)
     elif mode=="extract":
         extract_vars()
