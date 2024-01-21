@@ -46,9 +46,9 @@ def response_skill_data(data):
 
         condition = str()
         if r["precondition_1"]:
-            condition = make_condition_data(r["precondition_1"])
+            condition = make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
         if r["condition_1"]:
-            condition = condition + " " + make_condition_data(r["condition_1"])
+            condition = condition + " " + make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
 
         response_item["itemList"].append({"title": "조건", "description": condition})
         response_item["itemList"].append({"title": "효과", "description": ability})
@@ -61,10 +61,10 @@ def response_skill_data(data):
 def response_skill_condition_data(data):
     response_data = data.iloc[0]
     id, pc1, c1, pc2, c2 = response_data
-    pc1_data = make_condition_data(pc1)
-    pc2_data = make_condition_data(pc2)
-    c1_data = make_condition_data(c1)
-    c2_data = make_condition_data(c2)
+    pc1_data = make_condition_data(id, "precondition_1", pc1)
+    pc2_data = make_condition_data(id, "precondition_2", pc2)
+    c1_data = make_condition_data(id, "condition_1", c1)
+    c2_data = make_condition_data(id, "condition_2", c2)
 
     simpletext = str()
     simpletext_list = []

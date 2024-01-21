@@ -1,100 +1,100 @@
-English,KoreanPrefix,KoreanPostfix,Ref,Checked
-accumulatetime,레이스 경과,초,0,1
-activate_count_all,레이스 전체 발동 스킬,개,0,1
-activate_count_end_after,레이스 종반 및 이후 발동 스킬,개,0,1
-activate_count_heal,발동 지구력 회복 스킬,개,0,1
-activate_count_later_half,진행거리 비율,%,0,1
-activate_count_middle,레이스 중반 발동 스킬,개,0,1
-activate_count_start,레이스 초반 발동 스킬,개,0,1
-all_corner_random,무작위 코너,,0,1
-always,출발 시,,0,1
-base_power,파워,,0,1
-bashin_diff_behind,후방과의 차이,마신,0,1
-bashin_diff_infront,전방과의 차이,마신,0,1
-behind_near_lane_time,뒤의 말딸과 인접,초,0,1
-blocked_front,앞쪽 가로막힘 상태,,0,1
-blocked_front_continuetime,앞쪽 가로막힘,초,0,1
-blocked_side_continuetime,옆쪽 가로막힘,초,0,1
-change_order_onetime,순위,,0,1
-change_order_up_end_after,레이스 종반 및 이후 순위 상승,회,0,1
-change_order_up_finalcorner_after,최종 코너 및 이후 순위 상승,회,0,1
-compete_fight_count,종반 근성 경쟁,회,0,1
-corner,,,1,1
-corner_random,,코너,1,1
-distance_diff_rate,거리 상 위치,%,0,1
-distance_diff_top,선두와의 거리 차이,m,0,1
-distance_rate,진행거리,%,0,1
-distance_rate_after_random,진행거리,% 이후 무작위,0,1
-distance_type,,,1,1
-down_slope_random,무작위 내리막,,0,1
-grade,,레이스,1,1
-ground_condition,,상태,1,1
-ground_type,,,1,1
-hp_per,남은 지구력,%,0,1
-infront_near_lane_time,앞의 말딸과 인접,초,0,1
-is_activate_any_skill,발동 중인 스킬,개,0,1
-is_badstart,늦은 출발,,1,1
-is_basis_distance,,,0,1
-is_behind_in,안쪽 레인 다른 말딸 있음,,0,1
-is_dirtgrade,더트 대상경주,,0,1
-is_exist_chara_id,,레이스 참가,1,1
-is_finalcorner,최종 코너 진입,,0,1
-is_finalcorner_laterhalf,최종 코너 후반,,0,1
-is_finalcorner_random,최종 코너 무작위,,0,1
-is_last_straight_onetime,최종 직선 진입,,0,1
-is_lastspurt,라스트 스퍼트,,0,1
-is_move_lane,레인 이동,,1,1
-is_other_character_activate_advantage_skill,,발동 말딸 있음,1,1
-is_overtake,따라잡기 활성화,,0,1
-is_surrounded,둘러싸인 상태,,0,1
-is_temptation,흥분 상태,,1,1
-lane_type,,레인,1,1
-last_straight_random,최종 직선 무작위,,0,1
-lastspurt,라스트 스퍼트,,1,1
-motivation,컨디션,,1,1
-near_count,인접한 다른 말딸,명,0,1
-order,,,1,1
-order_rate,순위 비율,%,0,1
-overtake_target_time,자신이 추격대상이 됨,초,0,1
-phase,레이스,,1,1
-phase_firsthalf_random,레이스,전반 무작위,0,1
-phase_laterhalf_random,레이스,후반 무작위,0,1
-phase_random,레이스,무작위,1,1
-popularity,,번 인기,0,1
-post_number,그룹 번호,번,0,1
-random_lot,발동 확률,%,0,1
-remain_distance,남은 거리,m,0,1
-remain_distance_viewer_id,주시 대상 남은 거리,m,0,1
-rotation,,방향,1,1
-running_style,,,1,1
-running_style_count_nige_otherself,(자신제외)도주 작전인 말딸,명,0,1
-running_style_count_oikomi_otherself,(자신제외)추입 작전인 말딸,명,0,1
-running_style_count_same,자신과 동일 작전 다른 말딸,명,0,1
-running_style_count_same_rate,자신과 동일 작전 다른 말딸 비율,%,0,1
-running_style_count_sashi_otherself,(자신제외)선입 작전인 말딸,명,0,1
-running_style_count_senko_otherself,(자신제외)선행 작전인 말딸,명,0,1
-running_style_equal_popularity_one,,번 인기 말딸과 동일 작전,0,1
-running_style_temptation_opponent_count_nige,도주작전 흥분 상태 말딸,명,0,1
-running_style_temptation_opponent_count_oikomi,추입작전 흥분 상태 말딸,명,0,1
-running_style_temptation_opponent_count_sashi,선입작전 흥분 상태 말딸,명,0,1
-running_style_temptation_opponent_count_senko,선행작전 흥분 상태 말딸,명,0,1
-same_skill_horse_count,,,1,1
-season,,개최 레이스,1,1
-slope,,진입,1,1
-straight_front_type,,직선,1,1
-straight_random,무작위 직선,,0,1
-temptation_count,흥분 상태,회,0,1
-temptation_opponent_count_behind,후방에 흥분한 말딸,명,0,1
-temptation_opponent_count_infront,전방에 흥분한 말딸,명,0,1
-time,,,1,1
-track_id,,경기장,1,1
-up_slope_random,무작위 오르막,,0,1
-weather,,날,1,1
-behind_near_lane_time_set1,뒤의 말딸과 인접,초,0,1
-order_rate_in20_continue,순위 비율 20% 이하 유지,,0,1
-order_rate_in40_continue,순위 비율 40% 이하 유지,,0,1
-order_rate_out20_continue,순위 비율 20% 이상 유지,,0,1
-order_rate_out40_continue,순위 비율 40% 이상 유지,,0,1
-order_rate_out50_continue,순위 비율 50% 이상 유지,,0,1
-order_rate_out70_continue,순위 비율 70% 이상 유지,,0,1
-overtake_target_no_order_up_time,추격 대상 추월 못함,초,0,1
+English,KoreanPrefix,KoreanPostfix,Ref
+accumulatetime,레이스 경과,초,0
+activate_count_all,레이스 전체 발동 스킬,개,0
+activate_count_end_after,레이스 종반 및 이후 발동 스킬,개,0
+activate_count_heal,발동 지구력 회복 스킬,개,0
+activate_count_later_half,진행거리 비율,%,0
+activate_count_middle,레이스 중반 발동 스킬,개,0
+activate_count_start,레이스 초반 발동 스킬,개,0
+all_corner_random,무작위 코너,,0
+always,출발 시,,0
+base_power,파워,,0
+bashin_diff_behind,후방과의 차이,마신,0
+bashin_diff_infront,전방과의 차이,마신,0
+behind_near_lane_time,뒤의 말딸과 인접,초,0
+blocked_front,앞쪽 가로막힘 상태,,0
+blocked_front_continuetime,앞쪽 가로막힘,초,0
+blocked_side_continuetime,옆쪽 가로막힘,초,0
+change_order_onetime,순위,,0
+change_order_up_end_after,레이스 종반 및 이후 순위 상승,회,0
+change_order_up_finalcorner_after,최종 코너 및 이후 순위 상승,회,0
+compete_fight_count,종반 근성 경쟁,회,0
+corner,,,1
+corner_random,,코너,1
+distance_diff_rate,거리 상 위치,%,0
+distance_diff_top,선두와의 거리 차이,m,0
+distance_rate,진행거리,%,0
+distance_rate_after_random,진행거리,% 이후 무작위,0
+distance_type,,,1
+down_slope_random,무작위 내리막,,0
+grade,,레이스,1
+ground_condition,,상태,1
+ground_type,,,1
+hp_per,남은 지구력,%,0
+infront_near_lane_time,앞의 말딸과 인접,초,0
+is_activate_any_skill,발동 중인 스킬,개,0
+is_badstart,늦은 출발,,1
+is_basis_distance,,,0
+is_behind_in,안쪽 레인 다른 말딸 있음,,0
+is_dirtgrade,더트 대상경주,,0
+is_exist_chara_id,,레이스 참가,1
+is_finalcorner,최종 코너 진입,,0
+is_finalcorner_laterhalf,최종 코너 후반,,0
+is_finalcorner_random,최종 코너 무작위,,0
+is_last_straight_onetime,최종 직선 진입,,0
+is_lastspurt,라스트 스퍼트,,0
+is_move_lane,레인 이동,,1
+is_other_character_activate_advantage_skill,,발동 말딸 있음,1
+is_overtake,따라잡기 활성화,,0
+is_surrounded,둘러싸인 상태,,0
+is_temptation,흥분 상태,,1
+lane_type,,레인,1
+last_straight_random,최종 직선 무작위,,0
+lastspurt,라스트 스퍼트,,1
+motivation,컨디션,,1
+near_count,인접한 다른 말딸,명,0
+order,순위,위,0
+order_rate,순위 비율,%,0
+overtake_target_time,자신이 추격대상이 됨,초,0
+phase,레이스,,1
+phase_firsthalf_random,레이스,전반 무작위,0
+phase_laterhalf_random,레이스,후반 무작위,0
+phase_random,레이스,무작위,1
+popularity,,번 인기,0
+post_number,그룹 번호,번,0
+random_lot,발동 확률,%,0
+remain_distance,남은 거리,m,0
+remain_distance_viewer_id,주시 대상 남은 거리,m,0
+rotation,,방향,1
+running_style,,,1
+running_style_count_nige_otherself,(자신제외)도주 작전인 말딸,명,0
+running_style_count_oikomi_otherself,(자신제외)추입 작전인 말딸,명,0
+running_style_count_same,자신과 동일 작전 다른 말딸,명,0
+running_style_count_same_rate,자신과 동일 작전 다른 말딸 비율,%,0
+running_style_count_sashi_otherself,(자신제외)선입 작전인 말딸,명,0
+running_style_count_senko_otherself,(자신제외)선행 작전인 말딸,명,0
+running_style_equal_popularity_one,,번 인기 말딸과 동일 작전,0
+running_style_temptation_opponent_count_nige,도주작전 흥분 상태 말딸,명,0
+running_style_temptation_opponent_count_oikomi,추입작전 흥분 상태 말딸,명,0
+running_style_temptation_opponent_count_sashi,선입작전 흥분 상태 말딸,명,0
+running_style_temptation_opponent_count_senko,선행작전 흥분 상태 말딸,명,0
+same_skill_horse_count,,,1
+season,,개최 레이스,1
+slope,,진입,1
+straight_front_type,,직선,1
+straight_random,무작위 직선,,0
+temptation_count,흥분 상태,회,0
+temptation_opponent_count_behind,후방에 흥분한 말딸,명,0
+temptation_opponent_count_infront,전방에 흥분한 말딸,명,0
+time,,,1
+track_id,,경기장,1
+up_slope_random,무작위 오르막,,0
+weather,,날,1
+behind_near_lane_time_set1,뒤의 말딸과 인접,초,0
+order_rate_in20_continue,순위 비율 20% 이하 유지,,0
+order_rate_in40_continue,순위 비율 40% 이하 유지,,0
+order_rate_out20_continue,순위 비율 20% 이상 유지,,0
+order_rate_out40_continue,순위 비율 40% 이상 유지,,0
+order_rate_out50_continue,순위 비율 50% 이상 유지,,0
+order_rate_out70_continue,순위 비율 70% 이상 유지,,0
+overtake_target_no_order_up_time,추격 대상 추월 못함,초,0
