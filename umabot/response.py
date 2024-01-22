@@ -1,5 +1,5 @@
 import os
-from templates import carousel_itemcard_template, simpletext_template, quick_skill_replies_list, quick_chara_replies_list
+from templates import carousel_itemcard_template, listcard_template, simpletext_template, quick_skill_replies_list, quick_chara_replies_list
 from utils import make_condition_data, make_ability_data
 
 grade_for_str = {
@@ -158,5 +158,9 @@ def response_card_data(data):
 
 def response_card_detail_data(data):
     response_data = data.iloc[0]
+    id, chara_id, available_skill_set_id, skill_set, card_name, chara_name = response_data
+    title = ""
+    imageurl = ""
+    response = []
 
-    return None
+    return listcard_template(title, imageurl, response, quick_chara_replies_list)

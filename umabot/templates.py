@@ -19,6 +19,25 @@ def carousel_itemcard_template(simpletext, response, func):
         }
     }
 
+def listcard_template(title, imageurl, response, func):
+    return {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "listCard": {
+                        "header": {
+                            "title": title,
+                            "imageUrl": imageurl
+                        },
+                        "items": response
+                    }
+                }
+            ],
+            "quickReplies": func()
+        }
+    }
+
 def simpletext_template(text, func):
     return {
         "version": "2.0",
