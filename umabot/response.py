@@ -2,6 +2,17 @@ import os
 from templates import carousel_itemcard_template, simpletext_template, quick_skill_replies_list, quick_chara_replies_list
 from utils import make_condition_data, make_ability_data
 
+grade_for_str = {
+    1: "G",
+    2: "F",
+    3: "E",
+    4: "D",
+    5: "C",
+    6: "B",
+    7: "A",
+    8: "S"
+}
+
 def response_skill_data(data):
     limit_count = 5
     simpletext = str()
@@ -105,3 +116,42 @@ def response_skill_condition_data(data):
         simpletext = "\n".join(simpletext_list)
 
     return simpletext_template(simpletext, quick_skill_replies_list)
+
+def response_card_data(data):
+    limit_count = 5
+    simpletext = str()
+
+    # data is changed to dataframe, so code will be changed
+    if len(data) > limit_count:
+        simpletext = f'검색 결과가 {limit_count}개가 넘습니다. 처음 검색된 {limit_count}개만 표시합니다.'
+    elif len(data) == 0:
+        simpletext = '검색 결과가 없습니다.'
+    else:
+        simpletext = f'전체 {len(data)}개의 검색 결과가 있습니다.'    
+
+    response = []
+    for i, r in data.iterrows():
+        if i >= limit_count:
+            break
+
+        response_item = dict()
+        response_item["itemList"] = list()
+        response_item["itemListAlignment"] = "left"
+
+        response_item["buttons"] = [{"label": "더보기", "action": "block", "blockId": f"65ae13b211d6d30690c758d6", "extra": {"card_id": r["card_id"]}}]
+        response_item["buttonLayout"] = "vertical"
+
+        response_item["imageTitle"] = {
+            "imageUrl": f"https://gametora.com/images/umamusume/characters/chara_stand_{r['chara_id']}_{r['card_id']}.png",
+            "title": f"{r['card_name']}{r['chara_name']}"
+        }
+
+        response_item["itemList"].append({"title": "출시일자", "description": r["start_date"] if r["start_date"] not in ("2017-01-01", "2016-12-31") else "2022-06-20"})
+        response_item["itemList"].append({"title": "능력치 상승", "description": f"{r['talent_speed']}% / {r['talent_stamina']}% / {r['talent_pow']}% / {r['talent_guts']}% / {r['talent_wiz']}%"})
+        response_item["itemList"].append({"title": "경기장 적성", "description": f"{grade_for_str[r['proper_ground_turf']]} / {grade_for_str[r['proper_ground_dirt']]}"})
+        response_item["itemList"].append({"title": "거리 적성", "description": f"{grade_for_str[r['proper_distance_short']]} / {grade_for_str[r['proper_distance_mile']]} / {grade_for_str[r['proper_distance_middle']]} / {grade_for_str[r['proper_distance_long']]}"})
+        response_item["itemList"].append({"title": "각질 적성", "description": f"{grade_for_str[r['proper_running_style_nige']]} / {grade_for_str[r['proper_running_style_senko']]} / {grade_for_str[r['proper_running_style_sashi']]} / {grade_for_str[r['proper_running_style_oikomi']]}"})
+
+        response.append(response_item)
+
+    return carousel_itemcard_template(simpletext, response, quick_chara_replies_list)

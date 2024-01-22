@@ -56,24 +56,27 @@ def quick_skill_replies_list():
 def quick_chara_replies_list():
     return [
         {
-            "label": "고유기",
+            "label": "다른 캐릭터",
             "action": "message",
-            "messageText": "고유기"
+            "messageText": "캐릭터"
         },
         {
-            "label": "초기 스킬",
+            "label": "초기메뉴",
             "action": "message",
-            "messageText": "초기 스킬"
-        },
+            "messageText": "초기메뉴"
+        }
+    ]
+
+def quick_chara_detail_replies_list(name):
+    return [
         {
-            "label": "각성 스킬",
-            "action": "message",
-            "messageText": "각성 스킬"
-        },
-        {
-            "label": "이벤트",
-            "action": "message",
-            "messageText": "이벤트"
+            "label": "캐릭터 메인",
+            "action": "block",
+            "blockId": "65a794a2c704e241fe14e756",
+            "messageText": name,
+            "extra": {
+                "name": name
+            }
         },
         {
             "label": "다른 캐릭터",
@@ -83,6 +86,6 @@ def quick_chara_replies_list():
         {
             "label": "초기메뉴",
             "action": "message",
-            "messageText": "업데이트 예정"
+            "messageText": "초기메뉴"
         }
     ]
