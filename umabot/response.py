@@ -155,3 +155,8 @@ def response_card_data(data):
         response.append(response_item)
 
     return carousel_itemcard_template(simpletext, response, quick_chara_replies_list)
+
+def response_card_detail_data(data):
+    response_data = data.iloc[0]
+
+    return None

@@ -1,6 +1,6 @@
 import json
 from query import query_text_data, query_2ea_text_data, query_id_data
-from response import response_skill_data, response_skill_condition_data, response_card_data
+from response import response_skill_data, response_skill_condition_data, response_card_data, response_card_detail_data
 from flask import Flask, Response
 from flask import request
 
@@ -45,6 +45,18 @@ def get_card_data():
     response = response_card_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)                
+
+@app.route('/card_detail', methods=['POST'])
+def get_card_detail_data():
+    req = request.get_json()
+    card_id = req['action']['clientExtra']['card_id']
+    if card_id is None:
+        return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
+
+    result = query_id_data(card_id, 'card_detail.sql')
+    response = response_card_detail_data(result)
+    response = json.dumps(response, ensure_ascii=False).encode('utf8')
+    return Response(response, content_type='application/json; charset=utf-8', status=200)
 
 if __name__ == '__main__':
     app.run()
