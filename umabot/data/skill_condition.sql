@@ -3,5 +3,17 @@ SELECT `sd`.`id` AS `skill_id`
      , `sd`.`condition_1` AS `condition_1`
      , `sd`.`precondition_2` AS `precondition_2`
      , `sd`.`condition_2` AS `condition_2`
+     , `sd`.`ability_type_1_1` AS `ability_type_1_1`
+     , `sd`.`ability_type_1_2` AS `ability_type_1_2`
+     , `sd`.`ability_type_1_3` AS `ability_type_1_3`
+     , `sd`.`ability_type_2_1` AS `ability_type_2_1`
+     , `sd`.`ability_type_2_2` AS `ability_type_2_2`
+     , `sd`.`ability_type_2_3` AS `ability_type_2_3`
+     , `sd`.`float_ability_value_1_1` AS `float_ability_value_1_1`
+     , `sd`.`float_ability_value_1_2` AS `float_ability_value_1_2`
+     , `sd`.`float_ability_value_1_3` AS `float_ability_value_1_3`
+     , `sd`.`float_ability_value_2_1` AS `float_ability_value_2_1`
+     , `sd`.`float_ability_value_2_2` AS `float_ability_value_2_2`
+     , `sd`.`float_ability_value_2_3` AS `float_ability_value_2_3`
 FROM `skill_data` `sd`
 WHERE `sd`.`id` = ?     

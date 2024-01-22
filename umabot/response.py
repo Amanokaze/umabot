@@ -1,6 +1,6 @@
 import os
 from templates import carousel_itemcard_template, simpletext_template
-from utils import make_condition_data
+from utils import make_condition_data, make_ability_data
 
 def response_skill_data(data):
     limit_count = 5
@@ -38,11 +38,7 @@ def response_skill_data(data):
 
         response_item["description"] = r["skill_desc"].replace("\\n", " ")
 
-        ability = f"{r['ability_type_1_1']}{'상승' if r['float_ability_value_1_1'] > 0 else '감소'} {r['float_ability_value_1_1']/10000}"
-        if r["ability_type_1_2"] > 0:
-            ability = ability + " / " + f"{r['ability_type_1_2']}{'상승' if r['float_ability_value_1_2'] > 0 else '감소'} {r['float_ability_value_1_2']/10000}"
-        if r["ability_type_1_3"] > 0:
-            ability = ability + " / " + f"{r['ability_type_1_3']}{'상승' if r['float_ability_value_1_3'] > 0 else '감소'} {r['float_ability_value_1_3']/10000}"
+        ability = make_ability_data(r["ability_type_1_1"], r["ability_type_1_2"], r["ability_type_1_3"], r["float_ability_value_1_1"], r["float_ability_value_1_2"], r["float_ability_value_1_3"])
 
         condition = str()
         if r["precondition_1"]:
@@ -60,7 +56,7 @@ def response_skill_data(data):
 
 def response_skill_condition_data(data):
     response_data = data.iloc[0]
-    id, pc1, c1, pc2, c2 = response_data
+    id, pc1, c1, pc2, c2, at11, at12, at13, at21, at22, at23, av11, av12, av13, av21, av22, av23 = response_data
     pc1_data = make_condition_data(id, "precondition_1", pc1)
     pc2_data = make_condition_data(id, "precondition_2", pc2)
     c1_data = make_condition_data(id, "condition_1", c1)
@@ -76,6 +72,9 @@ def response_skill_condition_data(data):
             simpletext_list.append('조건')
             simpletext_list.append(c1_data)
 
+        simpletext_list.append('효과')
+        simpletext_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
+
         simpletext = "\n".join(simpletext_list)
 
     else:
@@ -86,6 +85,9 @@ def response_skill_condition_data(data):
             simpletext_list.append('조건1')
             simpletext_list.append(c1_data)
 
+        simpletext_list.append('효과1')
+        simpletext_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
+
         simpletext_list.append('')
         
         if pc2:
@@ -94,6 +96,9 @@ def response_skill_condition_data(data):
         if c2:
             simpletext_list.append('조건2')
             simpletext_list.append(c2_data)
+
+        simpletext_list.append('효과2')
+        simpletext_list.append(make_ability_data(at21, at22, at23, av21, av22, av23))
 
         simpletext = "\n".join(simpletext_list)
 

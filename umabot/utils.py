@@ -131,6 +131,23 @@ def make_condition_data(skill_id, skill_type, data):
 
     return formatted_data
 
+def make_ability_data(at1,at2,at3,av1,av2,av3):
+    ability_df = pd.read_csv(os.path.join(BASE_DIR, "umabot", "data", "ability.csv"))
+    ability_str = str()
+    if at1 != 0:
+        ab_df = ability_df[ability_df["id"]==at1]
+        ability_str = f"{ab_df['name'].values[0]} {av1/10000 if av1 != 0 else ''}"
+
+    if at2 != 0:
+        ab_df = ability_df[ability_df["id"]==at2]
+        ability_str = ability_str + " / " + f"{ab_df['name'].values[0]} {av2/10000 if av2 != 0 else ''}"
+
+    if at3 != 0:
+        ab_df = ability_df[ability_df["id"]==at3]
+        ability_str = ability_str + " / " + f"{ab_df['name'].values[0]} {av3/10000 if av3 != 0 else ''}"
+    
+    return ability_str
+
 def extract_vars():
     def extract_variables_from_csv(input_filename):
         variables = set()
@@ -172,10 +189,8 @@ def extract_orders():
     # 결과 저장
     df['filtered_condition'].to_csv(os.path.join(BASE_DIR, "umabot", "data", "order_data.csv"), index=False)
 
-
-
 if __name__ == "__main__":
-    mode = "condition"
+    mode = "ability"
 
     if mode=="condition":
         data1= "ground_type==2&ground_condition==3@ground_type==2&ground_condition==4"
@@ -198,6 +213,11 @@ if __name__ == "__main__":
         make_condition_data(900651, 'condition_2', data8)
         make_condition_data(100211, 'condition_1', data9)
         make_condition_data(900271, 'condition_1', data10)
+    elif mode=="ability":
+        make_ability_data(0, 0, 0, 0, 0, 0)
+        make_ability_data(1, 2, 0, 2000, -2000, 0)
+        make_ability_data(501, 502, 503, 10000, 20000, 30000)
+        make_ability_data(13, 31, 6, 10000, 20000, 0)
     elif mode=="extract":
         extract_vars()
     elif mode=="order":
