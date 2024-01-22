@@ -1,81 +1,82 @@
-variable,value,desc
-phase,0,초반
-phase,1,중반
-phase,2,종반
-order,1,선두
-distance_type,1,단거리
-distance_type,2,마일
-distance_type,3,중거리
-distance_type,4,장거리
-phase_random,0,초반
-phase_random,1,중반
-phase_random,2,종반
-is_move_lane,1,안쪽
-is_move_lane,2,바깥쪽
-running_style,1,도주
-running_style,2,선행
-running_style,3,선입
-running_style,4,추입
-slope,1,오르막
-slope,2,내리막
-ground_type,1,잔디
-ground_type,2,더트
-corner,1,코너
-corner,2,직선
-corner_random,1,1
-corner_random,2,2
-corner_random,3,3
-corner_random,4,4
-grade,100,G1
-ground_condition,1,양호
-ground_condition,2,다습
-ground_condition,3,포화
-ground_condition,4,불량
-track_id,10001,삿포로
-track_id,10002,하코다테
-track_id,10003,니이가타
-track_id,10004,후쿠시마
-track_id,10005,나카야마
-track_id,10006,도쿄
-track_id,10007,츄쿄
-track_id,10008,교토
-track_id,10009,한신
-track_id,10010,코쿠라
-track_id,10101,오이
-track_id,10103,가와사키
-track_id,10104,후나바시
-track_id,10105,모리오카
-is_badstart,0,하지 않음
-is_basis_distance,0,비근간거리
-is_basis_distance,1,근간거리
-is_exist_chara_id,1002,스즈카
-is_other_character_activate_advantage_skill,9,지구력 회복 스킬
-is_temptation,0,아님
-lane_type,0,가장 안쪽
-lastspurt,2,여력 남아있음
-motivation,1,최하
-motivation,2,나쁨
-motivation,3,보통
-motivation,4,양호
-motivation,5,최상
-phase_firsthalf_random,0,초반
-phase_firsthalf_random,1,중반
-phase_firsthalf_random,2,종반
-phase_laterhalf_random,0,초반
-phase_laterhalf_random,1,중반
-phase_laterhalf_random,2,종반
-rotation,1,시계방향
-rotation,2,반시계방향
-same_skill_horse_count,5,'심퍼시'스킬을 가진 말딸 5명이상
-same_skill_horse_count,1,자신만이 해당 스킬 보유 시 발동
-season,1,봄
-season,2,여름
-season,3,가을
-season,4,겨울
-season,5,봄
-straight_front_type,2,결승선 반대편
-time,4,야간
-weather,1,맑은
-weather,2,흐린
-weather,3,비 오는
-weather,4,눈 오는
+variable,value,operator,desc
+phase,0,,초반
+phase,1,,중반
+phase,2,,종반
+distance_type,1,,단거리
+distance_type,2,,마일
+distance_type,3,,중거리
+distance_type,4,,장거리
+phase_random,0,,초반
+phase_random,1,,중반
+phase_random,2,,종반
+is_move_lane,1,,안쪽
+is_move_lane,2,,바깥쪽
+running_style,1,,도주
+running_style,2,,선행
+running_style,3,,선입
+running_style,4,,추입
+slope,1,,오르막
+slope,2,,내리막
+ground_type,1,,잔디
+ground_type,2,,더트
+corner_random,1,,1
+corner_random,2,,2
+corner_random,3,,3
+corner_random,4,,4
+grade,100,,G1
+ground_condition,1,,양호
+ground_condition,2,,다습
+ground_condition,3,,포화
+ground_condition,4,,불량
+track_id,10001,,삿포로
+track_id,10002,,하코다테
+track_id,10003,,니이가타
+track_id,10004,,후쿠시마
+track_id,10005,,나카야마
+track_id,10006,,도쿄
+track_id,10007,,츄쿄
+track_id,10008,,교토
+track_id,10009,,한신
+track_id,10010,,코쿠라
+track_id,10101,,오이
+track_id,10103,,가와사키
+track_id,10104,,후나바시
+track_id,10105,,모리오카
+is_badstart,0,,하지 않음
+is_basis_distance,0,,비근간거리
+is_basis_distance,1,,근간거리
+is_exist_chara_id,1002,,스즈카
+is_other_character_activate_advantage_skill,9,,지구력 회복 스킬
+is_temptation,0,,아님
+lane_type,0,,가장 안쪽
+lastspurt,2,,여력 남아있음
+motivation,1,,최하
+motivation,2,,나쁨
+motivation,3,,보통
+motivation,4,,양호
+motivation,5,,최상
+phase_firsthalf_random,0,,초반
+phase_firsthalf_random,1,,중반
+phase_firsthalf_random,2,,종반
+phase_laterhalf_random,0,,초반
+phase_laterhalf_random,1,,중반
+phase_laterhalf_random,2,,종반
+rotation,1,,시계방향
+rotation,2,,반시계방향
+same_skill_horse_count,5,,'심퍼시'스킬을 가진 말딸 5명이상
+same_skill_horse_count,1,,자신만이 해당 스킬 보유 시 발동
+season,1,,봄
+season,2,,여름
+season,3,,가을
+season,4,,겨울
+season,5,,봄
+straight_front_type,2,,결승선 반대편
+time,4,,야간
+weather,1,,맑은
+weather,2,,흐린
+weather,3,,비 오는
+weather,4,,눈 오는
+change_order_onetime,0,<,상승
+change_order_onetime,0,>,하락
+corner,0,!=,코너
+corner,0,==,직선
