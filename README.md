@@ -8,14 +8,34 @@
 - 캐릭터 정보 받아오는 쿼리 필요
 - 해당 정보에 따른 아이콘 구성 필요
 - 1차 결과 캐러셀, 2차 결과 Detail
-- 캐릭터 별 기본 표시 항목
-  - 이름, 사진
-  - 기본스탯
-  - 기본적성
-  - 기본스킬
-  - 이벤트스킬
-  - 캐릭터별 이벤트 리스트 및 목록 결과
-  - 그런데, output이 여러개로 구성 가능한 것 같은데.. 그렇게 해야 할 듯
+- Master
+  - 카드명 - 캐릭터명 사진
+  - 기본 능력치: 0/0/0/0/0
+  - 능력치 상승: 0%/0%/0%/0%/0%
+  - 경기장 적성: A/G
+  - 거리 적성: F/C/A/A
+  - 각질 적성: G/A/A/C
+  - 더보기 버튼
+- Detail
+  - 카드명 - 캐릭터명 사진
+  - 출시일자: X <- start_data epoch time 사용, 2017-01-01은 2022-06-20 replace
+  - 등급 | 스피드 | 스테미나 | 파워 | 근성 | 지능 <- 이거 테이블로 좀 안되나
+  - 3 x x x x x <- card_rarity_data for loop
+  - 능력치 상승 0% 0% 0% 0% 0% <- card_data telent prefix
+  - 경기장 적성 <- card_rarity_data[0] index 잡고 쿼리, 이것도 테이블좀
+  - 거리 적성
+  - 각질 적성
+- Bottom Button
+  - 고유기: 스킬로 바로 이동
+    - card_rarity_data - skill_set / skill_set - skill_id1 Join
+  - 초기 스킬: 아래 쿼리
+    - card_data - available_skill_set_id / available_skill_set Table Join Need Rank = 0
+  - 보유 스킬: 아래 쿼리
+    - card_data - available_skill_set_id / available_skill_set Table Join Need Rank > 0
+  - 이벤트: 버튼만 만들고 Action은 보류할 것
+    - 이벤트쪽 다 만든 다음에 진행하는게 맞을 것
+
+
 
 ### 서포트 카드
 - 카드 정보 쿼리 필요
