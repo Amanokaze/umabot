@@ -1,5 +1,5 @@
 import os
-from templates import carousel_itemcard_template, simpletext_template
+from templates import carousel_itemcard_template, simpletext_template, quick_skill_replies_list, quick_chara_replies_list
 from utils import make_condition_data, make_ability_data
 
 def response_skill_data(data):
@@ -54,7 +54,7 @@ def response_skill_data(data):
 
         response.append(response_item)
 
-    return carousel_itemcard_template(simpletext, response)
+    return carousel_itemcard_template(simpletext, response, quick_skill_replies_list)
 
 def response_skill_condition_data(data):
     response_data = data.iloc[0]
@@ -104,4 +104,4 @@ def response_skill_condition_data(data):
 
         simpletext = "\n".join(simpletext_list)
 
-    return simpletext_template(simpletext)
+    return simpletext_template(simpletext, quick_skill_replies_list)

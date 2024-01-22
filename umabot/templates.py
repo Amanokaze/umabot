@@ -1,4 +1,4 @@
-def carousel_itemcard_template(simpletext, response):
+def carousel_itemcard_template(simpletext, response, func):
     return {
         "version": "2.0",
         "template": {
@@ -15,11 +15,11 @@ def carousel_itemcard_template(simpletext, response):
                     }
                 }
             ],
-            "quickReplies": quickreplies_list()
+            "quickReplies": func()
         }
     }
 
-def simpletext_template(text):
+def simpletext_template(text, func):
     return {
         "version": "2.0",
         "template": {
@@ -30,11 +30,11 @@ def simpletext_template(text):
                     }
                 }
             ],
-            "quickReplies": quickreplies_list()
+            "quickReplies": func()
         }
     }
 
-def quickreplies_list():
+def quick_skill_replies_list():
     return [
         {
             "label": "스킬",
@@ -47,7 +47,41 @@ def quickreplies_list():
             "messageText": "캐릭터"
         },
         {
-            "label": "업데이트 예정",
+            "label": "초기메뉴",
+            "action": "message",
+            "messageText": "업데이트 예정"
+        }
+    ]
+
+def quick_chara_replies_list():
+    return [
+        {
+            "label": "고유기",
+            "action": "message",
+            "messageText": "고유기"
+        },
+        {
+            "label": "초기 스킬",
+            "action": "message",
+            "messageText": "초기 스킬"
+        },
+        {
+            "label": "각성 스킬",
+            "action": "message",
+            "messageText": "각성 스킬"
+        },
+        {
+            "label": "이벤트",
+            "action": "message",
+            "messageText": "이벤트"
+        },
+        {
+            "label": "다른 캐릭터",
+            "action": "message",
+            "messageText": "캐릭터"
+        },
+        {
+            "label": "초기메뉴",
             "action": "message",
             "messageText": "업데이트 예정"
         }
