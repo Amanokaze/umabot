@@ -19,6 +19,22 @@ def carousel_itemcard_template(simpletext, response, func):
         }
     }
 
+def itemcard_template(title, imageurl, response, func):
+    return {
+        "profile": {
+            "title": title,
+            "imageUrl": imageurl,
+        },
+        "itemList": response,
+        "buttons": [
+            {
+                "action": "message",
+                "label": "상세정보",
+                "messageText": title
+            }
+        ]
+    }
+
 def listcard_template(title, imageurl, response, func):
     return {
         "version": "2.0",

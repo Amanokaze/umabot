@@ -1,5 +1,5 @@
 import os
-from templates import carousel_itemcard_template, listcard_template, simpletext_template, quick_skill_replies_list, quick_chara_replies_list
+from templates import carousel_itemcard_template, listcard_template, simpletext_template, quick_skill_replies_list, quick_chara_replies_list, quick_chara_detail_replies_list
 from utils import make_condition_data, make_ability_data
 
 grade_for_str = {
@@ -67,7 +67,7 @@ def response_skill_data(data):
 
     return carousel_itemcard_template(simpletext, response, quick_skill_replies_list)
 
-def response_skill_condition_data(data):
+def response_skill_condition_data(data, quick_type):
     response_data = data.iloc[0]
     id, pc1, c1, pc2, c2, at11, at12, at13, at21, at22, at23, av11, av12, av13, av21, av22, av23 = response_data
     pc1_data = make_condition_data(id, "precondition_1", pc1)
@@ -115,7 +115,58 @@ def response_skill_condition_data(data):
 
         simpletext = "\n".join(simpletext_list)
 
-    return simpletext_template(simpletext, quick_skill_replies_list)
+    return_func = None
+    if quick_type == 0:
+        return_func = quick_skill_replies_list
+    elif quick_type == 1:
+        return_func = quick_chara_replies_list
+    elif quick_type == 2:
+        return_func = quick_chara_detail_replies_list
+    else:
+        return_func = quick_skill_replies_list
+
+    return simpletext_template(simpletext, return_func)
+
+def response_skill_unique_card_data(data):
+    simpletext = str()
+    response = []
+    for i, r in data.iterrows():
+        response_item = dict()
+        response_item["itemList"] = list()
+        response_item["itemListAlignment"] = "left"
+
+        response_item["buttons"] = [{"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": r["skill_id"]}}]
+        response_item["buttonLayout"] = "vertical"
+
+        response_item["imageTitle"] = {
+            "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{r['icon_id']}.png",
+            "title": f"{r['skill_name']}"
+        }
+
+        if r['need_skill_point'] > 1:
+            response_item["title"] = f"{round(r['need_skill_point'])}Pt"
+        else:
+            response_item["title"] = "고유기"
+
+        response_item["description"] = r["skill_desc"].replace("\\n", " ")
+
+        ability = make_ability_data(r["ability_type_1_1"], r["ability_type_1_2"], r["ability_type_1_3"], r["float_ability_value_1_1"], r["float_ability_value_1_2"], r["float_ability_value_1_3"])
+
+        condition = str()
+        if r["precondition_1"]:
+            condition = make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
+        if r["condition_1"]:
+            condition = condition + " " + make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
+        
+        condition = condition.strip()
+
+        response_item["itemList"].append({"title": "조건", "description": condition})
+        response_item["itemList"].append({"title": "효과", "description": ability})
+        response_item["itemList"].append({"title": "지속/쿨", "description": f"{r['float_ability_time_1']/10000}초 / {r['float_cooldown_time_1']/10000}초"})
+
+        response.append(response_item)
+
+    return carousel_itemcard_template(simpletext, response, quick_skill_replies_list)
 
 def response_card_data(data):
     limit_count = 5
@@ -158,9 +209,45 @@ def response_card_data(data):
 
 def response_card_detail_data(data):
     response_data = data.iloc[0]
-    id, chara_id, available_skill_set_id, skill_set, card_name, chara_name = response_data
-    title = ""
-    imageurl = ""
+    id, chara_id, available_skill_set_id, skill_set, speed, stamina, pow, guts, wiz, card_name, chara_name, unique_skill_id, unique_skill_name, unique_skill_icon_id = response_data
+    title = f"{card_name}{chara_name}"
+    imageurl = f"https://gametora.com/images/umamusume/characters/chara_stand_{'chara_id'}_{id}.png"
+    
     response = []
+    response.append({
+        "title": "기본 능력치",
+        "description": f"{speed} / {stamina} / {pow} / {guts} / {wiz} (3성 기준)",
+        "imageUrl": "https://i.imgur.com/aF6VtSy.png",
+        "action": "block",
+        "blockId": "65ae13c5c4a3c1384a4c6646",
+        "extra": { "card_id": f"{id}" }
+    })
+    response.append({
+        "title": "고유기",
+        "description": unique_skill_name,
+        "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{unique_skill_icon_id}.png",
+        "action": "block",
+        "blockId": "65ae13c5c4a3c1384a4c6646",
+        "extra": { "skill_id": f"{unique_skill_id}" }
+    })
+    response.append({
+        "title": "초기 스킬",
+        "imageUrl": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_10011.png",
+        "action": "block",
+        "blockId": "65adee6210c91b797bc94716",
+        "extra": { "available_skill_set_id": f"{available_skill_set_id}" }
+    })
+    response.append({
+        "title": "각성 스킬",
+        "imageUrl": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_20011.png",
+        "action": "block",
+        "blockId": "65adee6843855575ff73b340",
+        "extra": { "available_skill_set_id": f"{available_skill_set_id}" }
+    })
+    response.append({
+        "title": "이벤트",
+        "description": "추후 구현 예정",
+        "imageUrl": "https://i.imgur.com/dtQFkJf.png",    
+    })
 
     return listcard_template(title, imageurl, response, quick_chara_replies_list)
