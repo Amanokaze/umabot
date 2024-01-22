@@ -45,6 +45,8 @@ def response_skill_data(data):
             condition = make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
         if r["condition_1"]:
             condition = condition + " " + make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
+        
+        condition = condition.strip()
 
         response_item["itemList"].append({"title": "조건", "description": condition})
         response_item["itemList"].append({"title": "효과", "description": ability})
@@ -85,7 +87,7 @@ def response_skill_condition_data(data):
             simpletext_list.append('조건1')
             simpletext_list.append(c1_data)
 
-        simpletext_list.append('효과1')
+        simpletext_list.append('효과')
         simpletext_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
 
         simpletext_list.append('')
@@ -97,7 +99,7 @@ def response_skill_condition_data(data):
             simpletext_list.append('조건2')
             simpletext_list.append(c2_data)
 
-        simpletext_list.append('효과2')
+        simpletext_list.append('효과')
         simpletext_list.append(make_ability_data(at21, at22, at23, av21, av22, av23))
 
         simpletext = "\n".join(simpletext_list)
