@@ -68,7 +68,7 @@ def quick_skill_replies_list():
         {
             "label": "초기메뉴",
             "action": "message",
-            "messageText": "업데이트 예정"
+            "messageText": "초기메뉴"
         }
     ]
 
