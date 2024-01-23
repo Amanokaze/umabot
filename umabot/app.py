@@ -27,16 +27,12 @@ def get_skill_condition_data():
     if skill_id is None:
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
-    message = str()
-    if 'message' in req['action']['clientExtra'] and req['action']['clientExtra']['message'] != '':
-        message = req['action']['clientExtra']['message']
-
     quick_type = 0
     if 'quick_type' in req['action']['clientExtra']:
         quick_type = int(req['action']['clientExtra']['quick_type'])
 
     result = q.query_id_data(skill_id, 'skill_condition.sql')
-    response = res.response_skill_condition_data(result, message, quick_type)
+    response = res.response_skill_condition_data(result, quick_type)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
@@ -44,13 +40,11 @@ def get_skill_condition_data():
 def get_card_data():
     message = str()
     req = request.get_json()
-    if 'name' in req['action']['clientExtra'] and req['action']['clientExtra']['name'] != '':
-        message = req['action']['clientExtra']['name']
-    elif 'name' in req['action']['params'] and req['action']['params']['name'] != '':
+    if 'name' in req['action']['params'] and req['action']['params']['name'] != '':
         message = req['action']['params']['name']
 
     result = q.query_2ea_text_data(message, message, 'card.sql')
-    response = res.response_card_data(result, message)
+    response = res.response_card_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)                
 
@@ -58,13 +52,12 @@ def get_card_data():
 def get_card_detail_data():
     req = request.get_json()
     card_id = req['action']['clientExtra']['card_id']
-    message = req['action']['clientExtra']['message']
 
     if card_id is None:
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
     result = q.query_id_data(card_id, 'card_detail.sql')
-    response = res.response_card_detail_data(result, message)
+    response = res.response_card_detail_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
@@ -72,13 +65,12 @@ def get_card_detail_data():
 def get_skill_unique_card_data():
     req = request.get_json()
     skill_id = req['action']['clientExtra']['skill_id']
-    message = req['action']['clientExtra']['message']
 
     if skill_id is None:
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
     result = q.query_id_data(skill_id, 'skill_unique_card.sql')
-    response = res.response_skill_unique_card_data(result, message)
+    response = res.response_skill_unique_card_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 

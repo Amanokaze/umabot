@@ -67,71 +67,72 @@ def response_skill_data(data):
 
     return tpl.carousel_itemcard_template(simpletext, response, tpl.quick_skill_replies_list)
 
-def response_skill_condition_data(data, message, quick_type):
+def response_skill_condition_data(data, quick_type):
     response_data = data.iloc[0]
-    id, pc1, c1, pc2, c2, at11, at12, at13, at21, at22, at23, av11, av12, av13, av21, av22, av23 = response_data
+    id, name, pc1, c1, pc2, c2, at11, at12, at13, at21, at22, at23, av11, av12, av13, av21, av22, av23 = response_data
     pc1_data = make_condition_data(id, "precondition_1", pc1)
     pc2_data = make_condition_data(id, "precondition_2", pc2)
     c1_data = make_condition_data(id, "condition_1", c1)
     c2_data = make_condition_data(id, "condition_2", c2)
 
-    simpletext = str()
-    simpletext_list = []
+    title = name
+    description = str()
+    desc_list = []
     if c2 is None or c2 == "":
         if pc1:
-            simpletext_list.append('전제조건')
-            simpletext_list.append(pc1_data)
+            desc_list.append('전제조건')
+            desc_list.append(pc1_data)
         if c1:
-            simpletext_list.append('조건')
-            simpletext_list.append(c1_data)
+            desc_list.append('조건')
+            desc_list.append(c1_data)
 
-        simpletext_list.append('효과')
-        simpletext_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
+        desc_list.append('효과')
+        desc_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
 
-        simpletext = "\n".join(simpletext_list)
+        description = "\n".join(desc_list)
 
     else:
         if pc1:
-            simpletext_list.append('전제조건1')
-            simpletext_list.append(pc1_data)
+            desc_list.append('전제조건1')
+            desc_list.append(pc1_data)
         if c1:
-            simpletext_list.append('조건1')
-            simpletext_list.append(c1_data)
+            desc_list.append('조건1')
+            desc_list.append(c1_data)
 
-        simpletext_list.append('효과')
-        simpletext_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
+        desc_list.append('효과')
+        desc_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
 
-        simpletext_list.append('')
+        desc_list.append('')
         
         if pc2:
-            simpletext_list.append('전제조건2')
-            simpletext_list.append(pc2_data)
+            desc_list.append('전제조건2')
+            desc_list.append(pc2_data)
         if c2:
-            simpletext_list.append('조건2')
-            simpletext_list.append(c2_data)
+            desc_list.append('조건2')
+            desc_list.append(c2_data)
 
-        simpletext_list.append('효과')
-        simpletext_list.append(make_ability_data(at21, at22, at23, av21, av22, av23))
+        desc_list.append('효과')
+        desc_list.append(make_ability_data(at21, at22, at23, av21, av22, av23))
 
-        simpletext = "\n".join(simpletext_list)
+        description = "\n".join(desc_list)
+
+    buttons = []
 
     return_func = None
     if quick_type == 0:
         return_func = tpl.quick_skill_replies_list
     elif quick_type == 1:
         return_func = tpl.quick_chara_replies_list
-    elif quick_type == 2:
-        return_func = tpl.quick_chara_detail_replies_list
     else:
         return_func = tpl.quick_skill_replies_list
 
-    return tpl.simpletext_template(simpletext, return_func)
+    return tpl.textcard_template(title, description, buttons, return_func)
 
-def response_skill_unique_card_data(data, message):
+def response_skill_unique_card_data(data):
     card_data = data.iloc[0]
 
     response = []    
-    buttons = [{"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": f"{card_data['skill_id']}", "message": message, "quick_type": "2"}}]
+    buttons = [{"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": f"{card_data['skill_id']}", "quick_type": "1"}}]
     title = f"{card_data['skill_name']}"
     imageurl = f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{card_data['icon_id']}.png"
 
@@ -149,13 +150,12 @@ def response_skill_unique_card_data(data, message):
     response.append({"title": "효과", "description": ability})
     response.append({"title": "지속/쿨", "description": f"{card_data['float_ability_time_1']/10000}초 / {card_data['float_cooldown_time_1']/10000}초"})
 
-    return tpl.itemcard_template(title, imageurl, response, buttons, tpl.quick_chara_detail_replies_list, message)
+    return tpl.itemcard_template(title, imageurl, response, buttons, tpl.quick_chara_replies_list)
 
-def response_card_data(data, message):
+def response_card_data(data):
     limit_count = 5
     simpletext = str()
 
-    # data is changed to dataframe, so code will be changed
     if len(data) > limit_count:
         simpletext = f'검색 결과가 {limit_count}개가 넘습니다. 처음 검색된 {limit_count}개만 표시합니다.'
     elif len(data) == 0:
@@ -172,7 +172,7 @@ def response_card_data(data, message):
         response_item["itemList"] = list()
         response_item["itemListAlignment"] = "left"
 
-        response_item["buttons"] = [{"label": "더보기", "action": "block", "blockId": f"65ae13b211d6d30690c758d6", "extra": {"card_id": r["card_id"], "message": message}}]
+        response_item["buttons"] = [{"label": "더보기", "action": "block", "blockId": f"65ae13b211d6d30690c758d6", "extra": {"card_id": r["card_id"]}}]
         response_item["buttonLayout"] = "vertical"
 
         response_item["imageTitle"] = {
@@ -190,7 +190,7 @@ def response_card_data(data, message):
 
     return tpl.carousel_itemcard_template(simpletext, response, tpl.quick_chara_replies_list)
 
-def response_card_detail_data(data, message):
+def response_card_detail_data(data):
     response_data = data.iloc[0]
     id, chara_id, available_skill_set_id, skill_set, speed, stamina, pow, guts, wiz, card_name, chara_name, unique_skill_id, unique_skill_name, unique_skill_icon_id = response_data
     title = f"{card_name}{chara_name}"
@@ -203,7 +203,7 @@ def response_card_detail_data(data, message):
         "imageUrl": "https://i.imgur.com/aF6VtSy.png",
         "action": "block",
         "blockId": "65ae13c5c4a3c1384a4c6646",
-        "extra": { "card_id": f"{id}", "message": message }
+        "extra": { "card_id": f"{id}" }
     })
     response.append({
         "title": "고유기",
@@ -211,21 +211,21 @@ def response_card_detail_data(data, message):
         "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{unique_skill_icon_id}.png",
         "action": "block",
         "blockId": "65adee5b8f90320133173b99",
-        "extra": { "skill_id": f"{unique_skill_id}", "message": message }
+        "extra": { "skill_id": f"{unique_skill_id}"}
     })
     response.append({
         "title": "초기 스킬",
         "imageUrl": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_10011.png",
         "action": "block",
         "blockId": "65adee6210c91b797bc94716",
-        "extra": { "available_skill_set_id": f"{available_skill_set_id}", "message": message }
+        "extra": { "available_skill_set_id": f"{available_skill_set_id}"}
     })
     response.append({
         "title": "각성 스킬",
         "imageUrl": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_20011.png",
         "action": "block",
         "blockId": "65adee6843855575ff73b340",
-        "extra": { "available_skill_set_id": f"{available_skill_set_id}", "message": message }
+        "extra": { "available_skill_set_id": f"{available_skill_set_id}"}
     })
     response.append({
         "title": "이벤트",

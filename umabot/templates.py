@@ -58,6 +58,23 @@ def listcard_template(title, imageurl, response, func, message=None):
         }
     }
 
+def textcard_template(title, description, buttons, func, message=None):
+    return {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "textCard": {
+                        "title": title,
+                        "description": description,
+                        "buttons": buttons
+                    }
+                }
+            ],
+            "quickReplies": func(message)
+        }
+    }
+
 def simpletext_template(text, func, message=None):
     return {
         "version": "2.0",
@@ -106,24 +123,3 @@ def quick_chara_replies_list(message=None):
         }
     ]
 
-def quick_chara_detail_replies_list(message=str()):
-    return [
-        {
-            "label": "캐릭터 메인",
-            "action": "block",
-            "blockId": "65a794a2c704e241fe14e756",
-            "extra": {
-                "name": message
-            }
-        },
-        {
-            "label": "다른 캐릭터",
-            "action": "message",
-            "messageText": "캐릭터"
-        },
-        {
-            "label": "초기메뉴",
-            "action": "message",
-            "messageText": "초기메뉴"
-        }
-    ]
