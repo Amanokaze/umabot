@@ -61,6 +61,19 @@ def get_card_detail_data():
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
+@app.route('/card_stat', methods=['POST'])
+def get_card_stat_data():
+    req = request.get_json()
+    card_id = req['action']['clientExtra']['card_id']
+
+    if card_id is None:
+        return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
+
+    result = q.query_id_data(card_id, 'card_stat.sql')
+    response = res.response_card_stat_data(result)
+    response = json.dumps(response, ensure_ascii=False).encode('utf8')
+    return Response(response, content_type='application/json; charset=utf-8', status=200)
+
 @app.route('/skill_unique_card', methods=['POST'])
 def get_skill_unique_card_data():
     req = request.get_json()

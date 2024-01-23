@@ -290,3 +290,17 @@ def response_card_detail_data(data):
     })
 
     return tpl.listcard_template(title, imageurl, response, tpl.quick_chara_replies_list)
+
+def response_card_stat_data(data):
+    response = []
+    response_head = data.iloc[0]
+    title = f"{response_head['card_name']}{response_head['chara_name']}"
+
+    for i, r in data.iterrows():
+        card_id, chara_id, rarity, speed, stamina, pow, guts, wiz, _, _ = r
+        response.append(f"{rarity}성 : {speed} / {stamina} / {pow} / {guts} / {wiz}")
+
+    description = "\n".join(response)
+    buttons = []
+
+    return tpl.textcard_template(title, description, buttons, tpl.quick_chara_replies_list)
