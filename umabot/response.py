@@ -300,9 +300,14 @@ def response_card_stat_data(data):
     response_head = data.iloc[0]
     title = f"{response_head['card_name']}{response_head['chara_name']}"
 
-    for i, r in data.iterrows():
-        card_id, chara_id, rarity, speed, stamina, pow, guts, wiz, _, _ = r
-        response.append(f"{rarity}성 : {speed} / {stamina} / {pow} / {guts} / {wiz}")
+    response.append(f"능력치 상승: {response_head['talent_speed']}% / {response_head['talent_stamina']}% / {response_head['talent_pow']}% / {response_head['talent_guts']}% / {response_head['talent_wiz']}%")
+    response.append(f"경기장 적성: {grade_for_str[response_head['proper_ground_turf']]} / {grade_for_str[response_head['proper_ground_dirt']]}")
+    response.append(f"거리 적성: {grade_for_str[response_head['proper_distance_short']]} / {grade_for_str[response_head['proper_distance_mile']]} / {grade_for_str[response_head['proper_distance_middle']]} / {grade_for_str[response_head['proper_distance_long']]}")
+    response.append(f"각질 적성: {grade_for_str[response_head['proper_running_style_nige']]} / {grade_for_str[response_head['proper_running_style_senko']]} / {grade_for_str[response_head['proper_running_style_sashi']]} / {grade_for_str[response_head['proper_running_style_oikomi']]}")
+    response.append("")
+
+    for _, r in data.iterrows():
+        response.append(f"{r['rarity']}성 : {r['speed']} / {r['stamina']} / {r['pow']} / {r['guts']} / {r['wiz']}")
 
     description = "\n".join(response)
     buttons = []
