@@ -38,4 +38,5 @@ WHERE `td_name`.`category` = 47
     AND `td_desc`.`category` = 48
     and `ass`.`available_skill_set_id` = ?
 	and `ass`.`need_rank` > 0
+    order by `ass`.`need_rank` asc, `td_name`.`text` asc
 

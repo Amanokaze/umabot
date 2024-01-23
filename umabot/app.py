@@ -82,7 +82,7 @@ def get_skill_default_card_data():
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
     result = q.query_id_data(skill_id, 'skill_default_card.sql')
-    response = res.response_card_data(result)
+    response = res.response_skill_extra_card_data(result, False)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
@@ -94,7 +94,7 @@ def get_skill_awaken_card_data():
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
     result = q.query_id_data(skill_id, 'skill_awaken_card.sql')
-    response = res.response_card_data(result)
+    response = res.response_skill_extra_card_data(result, True)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
