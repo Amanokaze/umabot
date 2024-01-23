@@ -2,34 +2,21 @@
 - 스킬 적용 완료
 - 캐릭터 Main 적용 완료
 - 캐릭터 Detail 적용 완료
-
+- 캐릭터 별 스탯, 스킬 적용 완료
 
 ## umabot 업데이트 예정사항
 
+### 스킬
+- 스킬 상세 버튼에 기존에 '조건'만 있는데, 추가 버튼 필요
+- 추가 버튼은 다음과 같음
+  - 스킬 보유 캐릭터카드 리스트: 캐러셀 - ListCard로 캐릭터별로 분류(4*5=20)
+  - 스킬 보유 서포트카드 리스트: 캐러셀 - ListCard로 캐릭터별로 분류(4*5=20)
+  - 세로배치로 수정할 것
+  
 ### 캐릭터
-- 1차 결과 캐러셀, 2차 결과 Detail
-- Detail - ListCard
-  - 기본 능력치: 0/0/0/0/0 (3성 기준)
-    - 링크 누르면 1,2,3,4,5성 능력치 SimpleText 출력
-  - 고유기: 스킬로 바로 이동
-    - card_rarity_data - skill_set / skill_set - skill_id1 Join
-  - 초기 스킬: 아래 쿼리
-    - card_data - available_skill_set_id / available_skill_set Table Join Need Rank = 0
-  - 보유 스킬: 아래 쿼리
-    - card_data - available_skill_set_id / available_skill_set Table Join Need Rank > 0
-  - 이벤트: 버튼만 만들고 Action은 보류할 것
-    - 이벤트쪽 다 만든 다음에 진행하는게 맞을 것
-  - Bottom Button
-    - 다른 캐릭터, 초기화면
-- Detail List Click Result
-  - 캐릭터 메인을 바텀버튼으로 바꾸고, 나머지는 QuickReply로 유지하는게 낫겠다..
-  - Bottom Button
-    - 캐릭터 메인
-  - QuickReply
-    - 다른 캐릭터, 초기화면
-- Todo 
-  - QuickReply 부분 Template 이동 함수 수정
-  - message를 QuickReply의 Parameter가 아니라 Button Parameter로 수정
+- Detail 부분에 Main에 나타낸 정보 추가로 구성해야 함
+- 그 이유는 다른 데서 링크타고 Detail 정보를 볼 가능성이 있기 때문에 다 나타내는게 좋음
+- 한 화면에 다 표시 못함, 그렇다면 기본정보를 기본능력치쪽 Detail에 추가표시하는 것으로 수정 필요
 
 ### 서포트 카드
 - 카드 정보 쿼리 필요

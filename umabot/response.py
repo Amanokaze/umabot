@@ -34,7 +34,11 @@ def response_skill_data(data):
         response_item["itemList"] = list()
         response_item["itemListAlignment"] = "left"
 
-        response_item["buttons"] = [{"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": r["skill_id"]}}]
+        response_item["buttons"] = [
+            {"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": r["skill_id"]}},
+            {"label": "보유 캐릭터카드", "action": "block", "blockId": f"65af6c9b6757d91c3fcb23fe", "extra": {"skill_id": r["skill_id"]}},
+            {"label": "보유 서포트카드", "action": "block", "blockId": f"65af6cc02c1b70051eb939a7", "extra": {"skill_id": r["skill_id"]}},
+        ]
         response_item["buttonLayout"] = "vertical"
 
         response_item["imageTitle"] = {
@@ -247,41 +251,41 @@ def response_card_data(data):
     return tpl.carousel_itemcard_template(simpletext, response, tpl.quick_chara_replies_list)
 
 def response_card_detail_data(data):
-    response_data = data.iloc[0]
-    id, chara_id, available_skill_set_id, skill_set, speed, stamina, pow, guts, wiz, card_name, chara_name, unique_skill_id, unique_skill_name, unique_skill_icon_id = response_data
-    title = f"{card_name}{chara_name}"
-    imageurl = f"https://gametora.com/images/umamusume/characters/chara_stand_{'chara_id'}_{id}.png"
+    rdata = data.iloc[0]
+    title = f"{rdata['card_name']}{rdata['chara_name']}"
+    imageurl = f"https://gametora.com/images/umamusume/characters/chara_stand_{rdata['chara_id']}_{rdata['card_id']}.png"
     
     response = []
+
     response.append({
         "title": "기본 능력치",
-        "description": f"{speed} / {stamina} / {pow} / {guts} / {wiz} (3성 기준)",
+        "description": f"{rdata['speed']} / {rdata['stamina']} / {rdata['pow']} / {rdata['guts']} / {rdata['wiz']} (3성 기준)",
         "imageUrl": "https://i.imgur.com/aF6VtSy.png",
         "action": "block",
         "blockId": "65ae13c5c4a3c1384a4c6646",
-        "extra": { "card_id": f"{id}" }
+        "extra": { "card_id": f"{rdata['card_id']}" }
     })
     response.append({
         "title": "고유기",
-        "description": unique_skill_name,
-        "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{unique_skill_icon_id}.png",
+        "description": rdata['unique_skill_name'],
+        "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{rdata['unique_skill_icon_id']}.png",
         "action": "block",
         "blockId": "65adee5b8f90320133173b99",
-        "extra": { "skill_id": f"{unique_skill_id}"}
+        "extra": { "skill_id": f"{rdata['unique_skill_id']}"}
     })
     response.append({
         "title": "초기 스킬",
         "imageUrl": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_10011.png",
         "action": "block",
         "blockId": "65adee6210c91b797bc94716",
-        "extra": { "available_skill_set_id": f"{available_skill_set_id}"}
+        "extra": { "available_skill_set_id": f"{rdata['available_skill_set_id']}"}
     })
     response.append({
         "title": "각성 스킬",
         "imageUrl": "https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_20011.png",
         "action": "block",
         "blockId": "65adee6843855575ff73b340",
-        "extra": { "available_skill_set_id": f"{available_skill_set_id}"}
+        "extra": { "available_skill_set_id": f"{rdata['available_skill_set_id']}"}
     })
     response.append({
         "title": "이벤트",
