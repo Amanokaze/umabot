@@ -1,4 +1,4 @@
-def carousel_itemcard_template(simpletext, response, func):
+def carousel_itemcard_template(simpletext, response, func, message=None):
     return {
         "version": "2.0",
         "template": {
@@ -15,27 +15,31 @@ def carousel_itemcard_template(simpletext, response, func):
                     }
                 }
             ],
-            "quickReplies": func()
+            "quickReplies": func(message)
         }
     }
 
-def itemcard_template(title, imageurl, response, func):
+def itemcard_template(title, imageurl, response, buttons, func, message=None):
     return {
-        "profile": {
-            "title": title,
-            "imageUrl": imageurl,
-        },
-        "itemList": response,
-        "buttons": [
-            {
-                "action": "message",
-                "label": "상세정보",
-                "messageText": title
-            }
-        ]
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "itemCard": {
+                        "profile": {
+                            "title": title,
+                            "imageUrl": imageurl
+                        },
+                        "itemList": response,
+                        "buttons": buttons
+                    }
+                }
+            ],
+            "quickReplies": func(message)
+        }
     }
 
-def listcard_template(title, imageurl, response, func):
+def listcard_template(title, imageurl, response, func, message=None):
     return {
         "version": "2.0",
         "template": {
@@ -50,11 +54,11 @@ def listcard_template(title, imageurl, response, func):
                     }
                 }
             ],
-            "quickReplies": func()
+            "quickReplies": func(message)
         }
     }
 
-def simpletext_template(text, func):
+def simpletext_template(text, func, message=None):
     return {
         "version": "2.0",
         "template": {
@@ -65,11 +69,11 @@ def simpletext_template(text, func):
                     }
                 }
             ],
-            "quickReplies": func()
+            "quickReplies": func(message)
         }
     }
 
-def quick_skill_replies_list():
+def quick_skill_replies_list(message=None):
     return [
         {
             "label": "스킬",
@@ -88,7 +92,7 @@ def quick_skill_replies_list():
         }
     ]
 
-def quick_chara_replies_list():
+def quick_chara_replies_list(message=None):
     return [
         {
             "label": "다른 캐릭터",
@@ -102,15 +106,14 @@ def quick_chara_replies_list():
         }
     ]
 
-def quick_chara_detail_replies_list(name):
+def quick_chara_detail_replies_list(message=str()):
     return [
         {
             "label": "캐릭터 메인",
             "action": "block",
             "blockId": "65a794a2c704e241fe14e756",
-            "messageText": name,
             "extra": {
-                "name": name
+                "name": message
             }
         },
         {

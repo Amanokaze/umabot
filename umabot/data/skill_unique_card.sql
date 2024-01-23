@@ -35,5 +35,5 @@ FROM ((((`skill_data` `sd`
         ON (`sd`.`id` = `ss`.`skill_id1`))
 WHERE `td_name`.`category` = 47
     AND `td_desc`.`category` = 48
-    and `ss`.`id` = ?
+    and `ss`.`skill_id1` = ?
 
