@@ -1,4 +1,4 @@
-def carousel_itemcard_template(simpletext, response):
+def carousel_itemcard_template(simpletext, response, func, message=None):
     return {
         "version": "2.0",
         "template": {
@@ -15,11 +15,67 @@ def carousel_itemcard_template(simpletext, response):
                     }
                 }
             ],
-            "quickReplies": quickreplies_list()
+            "quickReplies": func(message)
         }
     }
 
-def simpletext_template(text):
+def itemcard_template(title, imageurl, response, buttons, func, message=None):
+    return {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "itemCard": {
+                        "profile": {
+                            "title": title,
+                            "imageUrl": imageurl
+                        },
+                        "itemList": response,
+                        "buttons": buttons
+                    }
+                }
+            ],
+            "quickReplies": func(message)
+        }
+    }
+
+def listcard_template(title, imageurl, response, func, message=None):
+    return {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "listCard": {
+                        "header": {
+                            "title": title,
+                            "imageUrl": imageurl
+                        },
+                        "items": response
+                    }
+                }
+            ],
+            "quickReplies": func(message)
+        }
+    }
+
+def textcard_template(title, description, buttons, func, message=None):
+    return {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "textCard": {
+                        "title": title,
+                        "description": description,
+                        "buttons": buttons
+                    }
+                }
+            ],
+            "quickReplies": func(message)
+        }
+    }
+
+def simpletext_template(text, func, message=None):
     return {
         "version": "2.0",
         "template": {
@@ -30,11 +86,11 @@ def simpletext_template(text):
                     }
                 }
             ],
-            "quickReplies": quickreplies_list()
+            "quickReplies": func(message)
         }
     }
 
-def quickreplies_list():
+def quick_skill_replies_list(message=None):
     return [
         {
             "label": "스킬",
@@ -47,8 +103,23 @@ def quickreplies_list():
             "messageText": "캐릭터"
         },
         {
-            "label": "업데이트 예정",
+            "label": "초기메뉴",
             "action": "message",
-            "messageText": "업데이트 예정"
+            "messageText": "초기메뉴"
         }
     ]
+
+def quick_chara_replies_list(message=None):
+    return [
+        {
+            "label": "다른 캐릭터",
+            "action": "message",
+            "messageText": "캐릭터"
+        },
+        {
+            "label": "초기메뉴",
+            "action": "message",
+            "messageText": "초기메뉴"
+        }
+    ]
+

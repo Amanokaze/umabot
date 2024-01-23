@@ -1,21 +1,35 @@
-### umabot 업데이트 적용사항
+## umabot 업데이트 적용사항
 - 스킬 적용 완료
-  
-### umabot 업데이트 예정사항
+- 캐릭터 Main 적용 완료
+- 캐릭터 Detail 적용 완료
 
+
+## umabot 업데이트 예정사항
 
 ### 캐릭터
-- 캐릭터 정보 받아오는 쿼리 필요
-- 해당 정보에 따른 아이콘 구성 필요
 - 1차 결과 캐러셀, 2차 결과 Detail
-- 캐릭터 별 기본 표시 항목
-  - 이름, 사진
-  - 기본스탯
-  - 기본적성
-  - 기본스킬
-  - 이벤트스킬
-  - 캐릭터별 이벤트 리스트 및 목록 결과
-  - 그런데, output이 여러개로 구성 가능한 것 같은데.. 그렇게 해야 할 듯
+- Detail - ListCard
+  - 기본 능력치: 0/0/0/0/0 (3성 기준)
+    - 링크 누르면 1,2,3,4,5성 능력치 SimpleText 출력
+  - 고유기: 스킬로 바로 이동
+    - card_rarity_data - skill_set / skill_set - skill_id1 Join
+  - 초기 스킬: 아래 쿼리
+    - card_data - available_skill_set_id / available_skill_set Table Join Need Rank = 0
+  - 보유 스킬: 아래 쿼리
+    - card_data - available_skill_set_id / available_skill_set Table Join Need Rank > 0
+  - 이벤트: 버튼만 만들고 Action은 보류할 것
+    - 이벤트쪽 다 만든 다음에 진행하는게 맞을 것
+  - Bottom Button
+    - 다른 캐릭터, 초기화면
+- Detail List Click Result
+  - 캐릭터 메인을 바텀버튼으로 바꾸고, 나머지는 QuickReply로 유지하는게 낫겠다..
+  - Bottom Button
+    - 캐릭터 메인
+  - QuickReply
+    - 다른 캐릭터, 초기화면
+- Todo 
+  - QuickReply 부분 Template 이동 함수 수정
+  - message를 QuickReply의 Parameter가 아니라 Button Parameter로 수정
 
 ### 서포트 카드
 - 카드 정보 쿼리 필요
@@ -51,9 +65,5 @@
   - 해당 조건 포함된 캐릭터 및 서포트 리스트
   - 캐릭터 누르면 해당 캐릭터, 서포트 누르면 해당 서포트로 이동
 
-#### 링크
+### 링크
 - 유용한 링크 모음 정보 구성 필요
-
-#### 공통 적용 사항
-- 이전으로 가기, 처음으로 가기 구성이 있어야 함
-- 퀵메뉴 클릭에 따라 데이터를 전달해서 이전 값이 무엇인지를 가지고 있어야 함

@@ -1,4 +1,5 @@
 SELECT `sd`.`id` AS `skill_id`
+     , `td`.`text` AS `skill_name`
      , `sd`.`precondition_1` AS `precondition_1`
      , `sd`.`condition_1` AS `condition_1`
      , `sd`.`precondition_2` AS `precondition_2`
@@ -15,5 +16,6 @@ SELECT `sd`.`id` AS `skill_id`
      , `sd`.`float_ability_value_2_1` AS `float_ability_value_2_1`
      , `sd`.`float_ability_value_2_2` AS `float_ability_value_2_2`
      , `sd`.`float_ability_value_2_3` AS `float_ability_value_2_3`
-FROM `skill_data` `sd`
-WHERE `sd`.`id` = ?     
+ FROM `skill_data` `sd`, `text_data` `td`
+WHERE `td`.`index` = `sd`.`id`
+  AND `sd`.`id` = ?     
