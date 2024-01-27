@@ -1,6 +1,6 @@
 import os
 import templates as tpl 
-from utils import make_condition_data, make_ability_data
+import utils 
 
 grade_for_str = {
     1: "G",
@@ -13,15 +13,29 @@ grade_for_str = {
     8: "S"
 }
 
+support_grade_for_str = {
+    3: "SSR",
+    2: "SR",
+    1: "R"
+}
+
 def response_skill_data(data):
     limit_count = 5
     simpletext = str()
 
     # data is changed to dataframe, so code will be changed
-    if len(data) > limit_count:
+    if len(data) == 0:
+        title = '스킬 검색 결과 없음'
+        description = '검색 결과가 없습니다. 다시 검색하시겠습니까?'
+        buttons = [
+            {"label": "다시 검색", "action": "message", "messageText": "스킬"},
+            {"label": "초기메뉴", "action": "message", "messageText": "초기메뉴"}
+        ]
+
+        return tpl.textcard_template(title, description, buttons, tpl.quick_empty_list)
+    
+    elif len(data) > limit_count:
         simpletext = f'검색 결과가 {limit_count}개가 넘습니다. 처음 검색된 {limit_count}개만 표시합니다.'
-    elif len(data) == 0:
-        simpletext = '검색 결과가 없습니다.'
     else:
         simpletext = f'전체 {len(data)}개의 검색 결과가 있습니다.'
     
@@ -36,8 +50,7 @@ def response_skill_data(data):
 
         response_item["buttons"] = [
             {"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": r["skill_id"]}},
-            {"label": "보유 캐릭터카드", "action": "block", "blockId": f"65af6c9b6757d91c3fcb23fe", "extra": {"skill_id": r["skill_id"]}},
-            {"label": "보유 서포트카드", "action": "block", "blockId": f"65af6cc02c1b70051eb939a7", "extra": {"skill_id": r["skill_id"]}},
+            {"label": "보유 카드", "action": "block", "blockId": f"65af6c9b6757d91c3fcb23fe", "extra": {"skill_id": r["skill_id"]}},
         ]
         response_item["buttonLayout"] = "vertical"
 
@@ -53,13 +66,13 @@ def response_skill_data(data):
 
         response_item["description"] = r["skill_desc"].replace("\\n", " ")
 
-        ability = make_ability_data(r["ability_type_1_1"], r["ability_type_1_2"], r["ability_type_1_3"], r["float_ability_value_1_1"], r["float_ability_value_1_2"], r["float_ability_value_1_3"])
+        ability = utils.make_ability_data(r["ability_type_1_1"], r["ability_type_1_2"], r["ability_type_1_3"], r["float_ability_value_1_1"], r["float_ability_value_1_2"], r["float_ability_value_1_3"])
 
         condition = str()
         if r["precondition_1"]:
-            condition = make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
+            condition = utils.make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
         if r["condition_1"]:
-            condition = condition + " " + make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
+            condition = condition + " " + utils.make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
         
         condition = condition.strip()
 
@@ -74,10 +87,10 @@ def response_skill_data(data):
 def response_skill_condition_data(data, quick_type):
     response_data = data.iloc[0]
     id, name, pc1, c1, pc2, c2, at11, at12, at13, at21, at22, at23, av11, av12, av13, av21, av22, av23 = response_data
-    pc1_data = make_condition_data(id, "precondition_1", pc1)
-    pc2_data = make_condition_data(id, "precondition_2", pc2)
-    c1_data = make_condition_data(id, "condition_1", c1)
-    c2_data = make_condition_data(id, "condition_2", c2)
+    pc1_data = utils.make_condition_data(id, "precondition_1", pc1)
+    pc2_data = utils.make_condition_data(id, "precondition_2", pc2)
+    c1_data = utils.make_condition_data(id, "condition_1", c1)
+    c2_data = utils.make_condition_data(id, "condition_2", c2)
 
     title = name
     description = str()
@@ -91,7 +104,7 @@ def response_skill_condition_data(data, quick_type):
             desc_list.append(c1_data)
 
         desc_list.append('효과')
-        desc_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
+        desc_list.append(utils.make_ability_data(at11, at12, at13, av11, av12, av13))
 
         description = "\n".join(desc_list)
 
@@ -104,7 +117,7 @@ def response_skill_condition_data(data, quick_type):
             desc_list.append(c1_data)
 
         desc_list.append('효과')
-        desc_list.append(make_ability_data(at11, at12, at13, av11, av12, av13))
+        desc_list.append(utils.make_ability_data(at11, at12, at13, av11, av12, av13))
 
         desc_list.append('')
         
@@ -116,7 +129,7 @@ def response_skill_condition_data(data, quick_type):
             desc_list.append(c2_data)
 
         desc_list.append('효과')
-        desc_list.append(make_ability_data(at21, at22, at23, av21, av22, av23))
+        desc_list.append(utils.make_ability_data(at21, at22, at23, av21, av22, av23))
 
         description = "\n".join(desc_list)
 
@@ -140,13 +153,13 @@ def response_skill_unique_card_data(data):
     title = f"{card_data['skill_name']}"
     imageurl = f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{card_data['icon_id']}.png"
 
-    ability = make_ability_data(card_data["ability_type_1_1"], card_data["ability_type_1_2"], card_data["ability_type_1_3"], card_data["float_ability_value_1_1"], card_data["float_ability_value_1_2"], card_data["float_ability_value_1_3"])
+    ability = utils.make_ability_data(card_data["ability_type_1_1"], card_data["ability_type_1_2"], card_data["ability_type_1_3"], card_data["float_ability_value_1_1"], card_data["float_ability_value_1_2"], card_data["float_ability_value_1_3"])
 
     condition = str()
     if card_data["precondition_1"]:
-        condition = make_condition_data(card_data["skill_id"], "precondition_1", card_data["precondition_1"])
+        condition = utils.make_condition_data(card_data["skill_id"], "precondition_1", card_data["precondition_1"])
     if card_data["condition_1"]:
-        condition = condition + " " + make_condition_data(card_data["skill_id"], "condition_1", card_data["condition_1"])
+        condition = condition + " " + utils.make_condition_data(card_data["skill_id"], "condition_1", card_data["condition_1"])
     
     condition = condition.strip()
 
@@ -192,13 +205,13 @@ def response_skill_extra_card_data(data, flag):
 
         response_item["description"] = r["skill_desc"].replace("\\n", " ")
 
-        ability = make_ability_data(r["ability_type_1_1"], r["ability_type_1_2"], r["ability_type_1_3"], r["float_ability_value_1_1"], r["float_ability_value_1_2"], r["float_ability_value_1_3"])
+        ability = utils.make_ability_data(r["ability_type_1_1"], r["ability_type_1_2"], r["ability_type_1_3"], r["float_ability_value_1_1"], r["float_ability_value_1_2"], r["float_ability_value_1_3"])
 
         condition = str()
         if r["precondition_1"]:
-            condition = make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
+            condition = utils.make_condition_data(r["skill_id"], "precondition_1", r["precondition_1"])
         if r["condition_1"]:
-            condition = condition + " " + make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
+            condition = condition + " " + utils.make_condition_data(r["skill_id"], "condition_1", r["condition_1"])
         
         condition = condition.strip()
 
@@ -216,10 +229,18 @@ def response_card_data(data):
     limit_count = 5
     simpletext = str()
 
-    if len(data) > limit_count:
+    if len(data) == 0:
+        title = '캐릭터 검색 결과 없음'
+        description = '검색 결과가 없습니다. 다시 검색하시겠습니까?'
+        buttons = [
+            {"label": "다시 검색", "action": "message", "messageText": "캐릭터"},
+            {"label": "초기메뉴", "action": "message", "messageText": "초기메뉴"}
+        ]
+
+        return tpl.textcard_template(title, description, buttons, tpl.quick_empty_list)
+    
+    elif len(data) > limit_count:
         simpletext = f'검색 결과가 {limit_count}개가 넘습니다. 처음 검색된 {limit_count}개만 표시합니다.'
-    elif len(data) == 0:
-        simpletext = '검색 결과가 없습니다.'
     else:
         simpletext = f'전체 {len(data)}개의 검색 결과가 있습니다.'    
 
@@ -240,7 +261,7 @@ def response_card_data(data):
             "title": f"{r['card_name']}{r['chara_name']}"
         }
 
-        response_item["itemList"].append({"title": "출시일자", "description": r["start_date"] if r["start_date"] not in ("2017-01-01", "2016-12-31") else "2022-06-20"})
+        response_item["itemList"].append({"title": "출시일자", "description": utils.get_revised_start_date(r["start_date"])})
         response_item["itemList"].append({"title": "능력치 상승", "description": f"{r['talent_speed']}% / {r['talent_stamina']}% / {r['talent_pow']}% / {r['talent_guts']}% / {r['talent_wiz']}%"})
         response_item["itemList"].append({"title": "경기장 적성", "description": f"{grade_for_str[r['proper_ground_turf']]} / {grade_for_str[r['proper_ground_dirt']]}"})
         response_item["itemList"].append({"title": "거리 적성", "description": f"{grade_for_str[r['proper_distance_short']]} / {grade_for_str[r['proper_distance_mile']]} / {grade_for_str[r['proper_distance_middle']]} / {grade_for_str[r['proper_distance_long']]}"})
@@ -313,3 +334,46 @@ def response_card_stat_data(data):
     buttons = []
 
     return tpl.textcard_template(title, description, buttons, tpl.quick_chara_replies_list)
+
+def response_support_card_data(data):
+    total_limit_count = 20
+    listitem_limit_count = 4
+    simpletext = str()
+
+    if len(data) == 0:
+        title = '서포트 카드 검색 결과 없음'
+        description = '검색 결과가 없습니다. 다시 검색하시겠습니까?'
+        buttons = [
+            {"label": "다시 검색", "action": "message", "messageText": "서포트 카드"},
+            {"label": "초기메뉴", "action": "message", "messageText": "초기메뉴"}
+        ]
+
+        return tpl.textcard_template(title, description, buttons, tpl.quick_empty_list)
+    
+    elif len(data) > total_limit_count:
+        simpletext = f'검색 결과가 {total_limit_count}개가 넘습니다. 처음 검색된 {total_limit_count}개만 표시합니다.'
+    else:
+        simpletext = f'전체 {len(data)}개의 검색 결과가 있습니다.'    
+
+    response = []
+    rarity_data = utils.make_dbl_list(data, "rarity", listitem_limit_count)
+
+    for r in rarity_data:
+        response_item = dict()
+        response_item["header"] = {"title": f"검색 결과 - {support_grade_for_str[r[0]['rarity']]}"}
+        response_item["items"] = []
+
+        for rr in r:
+            response_item["items"].append({
+                "title": f"{rr['sc_name']}{rr['chara_name']}",
+                "description": f"출시일자: {utils.get_revised_start_date(rr['start_date'])}",
+                "imageUrl": f"https://gametora.com/images/umamusume/supports/tex_support_card_{rr['scd_id']}.png",
+                "action": "block",
+                "blockId": "65b2eeb61ac159401a43e609",
+                "extra": { "scd_id": f"{rr['scd_id']}" }
+            })
+
+        response.append(response_item)
+
+    return tpl.carousel_listcard_template(simpletext, response, tpl.quick_support_replies_list)
+

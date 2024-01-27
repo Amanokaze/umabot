@@ -148,6 +148,19 @@ def make_ability_data(at1,at2,at3,av1,av2,av3):
     
     return ability_str
 
+def make_dbl_list(data, column, limit_count=4):
+    result = [group.to_dict('records') for _, group in data.groupby(column, sort=False)]
+
+    new_result = []
+    for sublist in result:
+        for i in range(0, len(sublist), limit_count):
+            new_result.append(sublist[i:i + limit_count])
+
+    return new_result
+
+def get_revised_start_date(data):
+    return data if data not in ("2017-01-01", "2016-12-31") else "2022-06-20"
+
 def extract_vars():
     def extract_variables_from_csv(input_filename):
         variables = set()

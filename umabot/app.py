@@ -111,5 +111,17 @@ def get_skill_awaken_card_data():
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
+@app.route('/support_card', methods=['POST'])
+def get_support_card_data():
+    req = request.get_json()
+    message = str()
+    if 'name' in req['action']['params'] and req['action']['params']['name'] != '':
+        message = req['action']['params']['name']
+
+    result = q.query_2ea_text_data(message, message, 'support_card.sql')
+    response = res.response_support_card_data(result)
+    response = json.dumps(response, ensure_ascii=False).encode('utf8')
+    return Response(response, content_type='application/json; charset=utf-8', status=200)
+
 if __name__ == '__main__':
     app.run()
