@@ -161,6 +161,22 @@ def make_dbl_list(data, column, limit_count=4):
 def get_revised_start_date(data):
     return data if data not in ("2017-01-01", "2016-12-31") else "2022-06-20"
 
+def get_support_command_id(card_type, command_id):
+    support_command_ids = {
+        101: "00",
+        105: "01",
+        102: "02",
+        103: "03",
+        106: "04"
+    }
+
+    if card_type == 2:
+        return "05"
+    elif card_type == 3:
+        return "06"
+    else:
+        return support_command_ids[command_id]
+
 def extract_vars():
     def extract_variables_from_csv(input_filename):
         variables = set()

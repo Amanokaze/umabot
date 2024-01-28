@@ -123,5 +123,18 @@ def get_support_card_data():
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
+@app.route('/support_card_menu', methods=['POST'])
+def get_support_card_menu_data():
+    req = request.get_json()
+    scd_id = req['action']['clientExtra']['scd_id']
+
+    if scd_id is None:
+        return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
+
+    result = q.query_2ea_id_data(scd_id, scd_id, 'support_card_menu.sql')
+    response = res.response_support_card_menu_data(result)
+    response = json.dumps(response, ensure_ascii=False).encode('utf8')
+    return Response(response, content_type='application/json; charset=utf-8', status=200)
+
 if __name__ == '__main__':
     app.run()

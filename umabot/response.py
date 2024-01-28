@@ -377,3 +377,46 @@ def response_support_card_data(data):
 
     return tpl.carousel_listcard_template(simpletext, response, tpl.quick_support_replies_list)
 
+def response_support_card_menu_data(data):
+    rdata = data.iloc[0]
+    title = f"{rdata['sc_name']}{rdata['chara_name']}"
+    imageurl = f"https://gametora.com/images/umamusume/supports/tex_support_card_{rdata['scd_id']}.png"
+    
+    response = []
+
+    effect_icon_id = utils.get_support_command_id(rdata['support_card_type'], rdata['command_id'])
+    response.append({
+        "title": "효과",
+        "description": f"최대 레벨 기준",
+        "imageUrl": f"https://gametora.com/images/umamusume/icons/utx_ico_obtain_{effect_icon_id}.png",
+        "action": "block",
+        "blockId": "65b2eec6ea8e4936a2c4c89c",
+        "extra": { "scd_id": f"{rdata['scd_id']}" }
+    })
+
+    # 육성 스킬은 나중에 이벤트 하고나서 연동해야 할 것..
+    response.append({
+        "title": "육성 스킬",
+        "description": "추후 구현 예정",
+        "imageUrl": "https://gametora.com/images/umamusume/icons/notes_square.png",
+        "action": "block",
+        "blockId": "65b2ef3176fd254fabd67a1a",
+        "extra": { "scd_id": f"{rdata['scd_id']}" }
+    })
+
+    response.append({
+        "title": "힌트 스킬",
+        "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{rdata['hint_icon_id']}.png",
+        "action": "block",
+        "blockId": "65b2ef132f5e1808a9593b06",
+        "extra": { "scd_id": f"{rdata['scd_id']}" }
+    })
+
+    response.append({
+        "title": "이벤트",
+        "description": "추후 구현 예정",
+        "imageUrl": "https://i.imgur.com/dtQFkJf.png",    
+    })
+
+    return tpl.listcard_template(title, imageurl, response, tpl.quick_support_replies_list)
+

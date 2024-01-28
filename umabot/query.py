@@ -50,6 +50,20 @@ def query_id_data(id, filename):
     close_db(conn, cursor)
     return df
 
+def query_2ea_id_data(id1, id2, filename):
+    conn, cursor = connect_db()
+
+    with open(os.path.join(BASE_DIR, 'umabot', 'data', filename), 'r') as f:
+        sql = f.read()
+        cursor.execute(sql, (id1, id2))
+        result = cursor.fetchall()
+        
+        columns = [column[0] for column in cursor.description]
+        df = pd.DataFrame(result, columns=columns)
+
+    close_db(conn, cursor)
+    return df
+
 def query_skill_icon():
     conn, cursor = connect_db()
 
