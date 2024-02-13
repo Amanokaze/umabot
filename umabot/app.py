@@ -82,7 +82,7 @@ def get_skill_unique_card_data():
     if skill_id is None:
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
-    result = q.query_id_data(skill_id, 'skill_unique_card.sql')
+    result = q.query_id_data(skill_id, 'skill_character_unique.sql')
     response = res.response_skill_unique_card_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
@@ -94,7 +94,7 @@ def get_skill_default_card_data():
     if skill_id is None:
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
-    result = q.query_id_data(skill_id, 'skill_default_card.sql')
+    result = q.query_id_data(skill_id, 'skill_character_default.sql')
     response = res.response_skill_extra_card_data(result, False)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
@@ -133,6 +133,19 @@ def get_support_card_menu_data():
 
     result = q.query_2ea_id_data(scd_id, scd_id, 'support_card_menu.sql')
     response = res.response_support_card_menu_data(result)
+    response = json.dumps(response, ensure_ascii=False).encode('utf8')
+    return Response(response, content_type='application/json; charset=utf-8', status=200)
+
+@app.route('/support_card_hint_list', methods=['POST'])
+def get_support_card_hint_list_data():
+    req = request.get_json()
+    scd_id = req['action']['clientExtra']['scd_id']
+
+    if scd_id is None:
+        return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
+
+    result = q.query_id_data(scd_id, 'skill_support_hint.sql')
+    response = res.response_support_card_hint_list_data(result)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 

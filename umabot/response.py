@@ -19,6 +19,17 @@ support_grade_for_str = {
     1: "R"
 }
 
+skill_category_for_str = {
+    0: "패시브 스킬",
+    1: "초반 발동 스킬",
+    2: "중반 발동 스킬",
+    3: "종반 발동 스킬",
+    4: "상시 발동 스킬",
+    5: "고유기/계승기",
+    101: "카니발 보너스"
+
+}
+
 def response_skill_data(data):
     limit_count = 5
     simpletext = str()
@@ -420,3 +431,43 @@ def response_support_card_menu_data(data):
 
     return tpl.listcard_template(title, imageurl, response, tpl.quick_support_replies_list)
 
+def response_support_card_hint_list_data(data):
+    total_limit_count = 20
+    listitem_limit_count = 4
+    simpletext = str()
+
+    if len(data) == 0:
+        title = '잘못된 데이터'
+        description = '입력 경로가 잘못되었습니다. 초기 메뉴로 이동합니다.'
+        buttons = [
+            {"label": "초기메뉴", "action": "message", "messageText": "초기메뉴"}
+        ]
+
+        return tpl.textcard_template(title, description, buttons, tpl.quick_empty_list)
+    
+    elif len(data) > total_limit_count:
+        simpletext = f'검색 결과가 {total_limit_count}개가 넘습니다. 처음 검색된 {total_limit_count}개만 표시합니다.'
+    else:
+        simpletext = f'전체 {len(data)}개의 검색 결과가 있습니다.'    
+
+    response = []
+    category_data = utils.make_dbl_list(data, "skill_category", listitem_limit_count)
+
+    for r in category_data:
+        response_item = dict()
+        response_item["header"] = {"title": f"검색 결과 - {skill_category_for_str[r[0]['skill_category']]}"}
+        response_item["items"] = []
+
+        for rr in r:
+            response_item["items"].append({
+                "title": rr['skill_name'],
+                "description": rr['skill_desc'].replace('\\n', ' '),
+                "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{rr['hint_icon_id']}.png",
+                "action": "block",
+                "blockId": "65b2eeb61ac159401a43e609",
+                "extra": { "skill_id": f"{rr['skill_id']}" }
+            })
+
+        response.append(response_item)
+
+    return tpl.carousel_listcard_template(simpletext, response, tpl.quick_support_replies_list)
