@@ -74,16 +74,20 @@ def get_card_stat_data():
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 
-@app.route('/skill_unique_card', methods=['POST'])
-def get_skill_unique_card_data():
+@app.route('/skill_single', methods=['POST'])
+def get_skill_single_data():
     req = request.get_json()
     skill_id = req['action']['clientExtra']['skill_id']
+    ref = str()
+    
+    if 'ref' in req['action']['clientExtra']:
+        ref = req['action']['clientExtra']['ref']
 
     if skill_id is None:
         return Response('Not found', content_type='text/plain; charset=utf-8', status=200)
 
-    result = q.query_id_data(skill_id, 'skill_character_unique.sql')
-    response = res.response_skill_unique_card_data(result)
+    result = q.query_id_data(skill_id, 'skill_single.sql')
+    response = res.response_skill_single_data(result, ref)
     response = json.dumps(response, ensure_ascii=False).encode('utf8')
     return Response(response, content_type='application/json; charset=utf-8', status=200)
 

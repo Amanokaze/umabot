@@ -19,7 +19,7 @@ def carousel_itemcard_template(simpletext, response, func, message=None):
         }
     }
 
-def itemcard_template(title, imageurl, response, buttons, func, message=None):
+def itemcard_template(title, imageurl, response, buttons, func, texttitle=None, textdescription=None, message=None):
     return {
         "version": "2.0",
         "template": {
@@ -31,7 +31,9 @@ def itemcard_template(title, imageurl, response, buttons, func, message=None):
                             "imageUrl": imageurl
                         },
                         "itemList": response,
-                        "buttons": buttons
+                        "buttons": buttons,
+                        "title": texttitle,
+                        "description": textdescription
                     }
                 }
             ],

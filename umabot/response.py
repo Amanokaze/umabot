@@ -156,11 +156,23 @@ def response_skill_condition_data(data, quick_type):
 
     return tpl.textcard_template(title, description, buttons, return_func)
 
-def response_skill_unique_card_data(data):
+def response_skill_single_data(data, ref):
+    if len(data) == 0:
+        title = '잘못된 데이터'
+        description = '입력 경로가 잘못되었습니다. 초기 메뉴로 이동합니다.'
+        buttons = [
+            {"label": "초기메뉴", "action": "message", "messageText": "초기메뉴"}
+        ]
+
+        return tpl.textcard_template(title, description, buttons, tpl.quick_empty_list)
+
     card_data = data.iloc[0]
 
     response = []    
-    buttons = [{"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": f"{card_data['skill_id']}", "quick_type": "1"}}]
+    buttons = [
+        {"label": "조건", "action": "block", "blockId": f"65a9379b4d97486c0d142ff7", "extra": {"skill_id": f"{card_data['skill_id']}", "ref": ref}},
+        {"label": "보유 카드", "action": "block", "blockId": f"65af6c9b6757d91c3fcb23fe", "extra": {"skill_id": f"{card_data['skill_id']}"}}
+    ]
     title = f"{card_data['skill_name']}"
     imageurl = f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{card_data['icon_id']}.png"
 
@@ -178,7 +190,21 @@ def response_skill_unique_card_data(data):
     response.append({"title": "효과", "description": ability})
     response.append({"title": "지속/쿨", "description": f"{card_data['float_ability_time_1']/10000}초 / {card_data['float_cooldown_time_1']/10000}초"})
 
-    return tpl.itemcard_template(title, imageurl, response, buttons, tpl.quick_chara_replies_list)
+    texttitle = str()
+    textdescription = str()
+    if card_data['need_skill_point'] != None and card_data['need_skill_point'] > 1:
+        texttitle = f"{round(card_data['need_skill_point'])}Pt"
+        textdescription = card_data["skill_desc"].replace("\\n", " ")
+
+    quickreply_func = None
+    if ref == "support_card":
+        quickreply_func = tpl.quick_support_replies_list
+    elif ref == "character_card":
+        quickreply_func = tpl.quick_chara_replies_list
+    else:
+        quickreply_func = tpl.quick_skill_replies_list
+
+    return tpl.itemcard_template(title, imageurl, response, buttons, quickreply_func, texttitle, textdescription)
 
 def response_skill_extra_card_data(data, flag):
     limit_count = 5
@@ -303,7 +329,7 @@ def response_card_detail_data(data):
         "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{rdata['unique_skill_icon_id']}.png",
         "action": "block",
         "blockId": "65adee5b8f90320133173b99",
-        "extra": { "skill_id": f"{rdata['unique_skill_id']}"}
+        "extra": { "skill_id": f"{rdata['unique_skill_id']}", "ref": "character_card"}
     })
     response.append({
         "title": "초기 스킬",
@@ -464,8 +490,8 @@ def response_support_card_hint_list_data(data):
                 "description": rr['skill_desc'].replace('\\n', ' '),
                 "imageUrl": f"https://gametora.com/images/umamusume/skill_icons/utx_ico_skill_{rr['hint_icon_id']}.png",
                 "action": "block",
-                "blockId": "65b2eeb61ac159401a43e609",
-                "extra": { "skill_id": f"{rr['skill_id']}" }
+                "blockId": "65adee5b8f90320133173b99",
+                "extra": { "skill_id": f"{rr['skill_id']}", "ref": "support_card" }
             })
 
         response.append(response_item)
